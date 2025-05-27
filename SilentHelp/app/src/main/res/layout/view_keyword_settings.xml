@@ -4,7 +4,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0f2439"
+    android:background="@color/bg_drk_blue"
     android:padding="24dp">
 
     <LinearLayout
@@ -15,10 +15,10 @@
         <!-- =========== Keyword Setting Title =========== -->
         <TextView
             android:id="@+id/settingsTitle"
-            android:text="Keyword Settings"
+            android:text="@string/keyword_settings"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#F0F0F0"
+            android:textColor="@color/muted_white"
             android:fontFamily="sans-serif-medium"
             android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
@@ -27,13 +27,13 @@
         <!-- =========== Keyword Input Box =========== -->
         <EditText
             android:id="@+id/inputKeyword"
-            android:hint="Enter a keyword"
+            android:hint="@string/enter_a_keyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_input"
             android:padding="12dp"
-            android:textColor="#F0F0F0"
-            android:textColorHint="#A0A0A0"
+            android:textColor="@color/muted_white"
+            android:textColorHint="@color/muted_grey"
             android:fontFamily="sans-serif" />
 
         <!-- =========== Button Row =========== -->
@@ -47,57 +47,69 @@
             <!-- =========== Add Button =========== -->
             <Button
                 android:id="@+id/btnAdd"
-                android:text="Add"
+                android:text="@string/add"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
-                android:backgroundTint="#438985"
-                android:textColor="#FFFFFF"
-                android:fontFamily="sans-serif-medium" />
+                android:backgroundTint="@color/accent_teal"
+                android:textColor="@color/muted_white"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:letterSpacing="0.02"
+                android:textAllCaps="false" />
 
             <!-- =========== Edit Button =========== -->
             <Button
                 android:id="@+id/btnEdit"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="6dp"
-                android:backgroundTint="#40b4df"
-                android:textColor="#1B1C20"
-                android:fontFamily="sans-serif-medium" />
+                android:backgroundTint="@color/accent_blue"
+                android:textColor="@color/muted_white"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:letterSpacing="0.02"
+                android:textAllCaps="false" />
 
             <!-- =========== Delete Button =========== -->
             <Button
                 android:id="@+id/btnDelete"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
-                android:backgroundTint="#c66368"
-                android:textColor="#FFFFFF"
-                android:fontFamily="sans-serif-medium" />
+                android:backgroundTint="@color/accent_red"
+                android:textColor="@color/muted_white"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:letterSpacing="0.02"
+                android:textAllCaps="false" />
         </LinearLayout>
 
         <!-- =========== Saved Keywords Title/Header =========== -->
         <TextView
             android:id="@+id/listHeader"
-            android:text="Saved Keywords"
-            android:textColor="#F0F0F0"
+            android:text="@string/saved_keywords"
+            android:textColor="@color/muted_white"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-            <!-- =========== Keyword List =========== -->
+        <!-- =========== Keyword List =========== -->
         <ListView
             android:id="@+id/listKeywords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="#2A2A2A"
+            android:divider="@color/bg_blue"
             android:dividerHeight="1dp"
             android:layout_marginTop="8dp" />
     </LinearLayout>
