@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created by Kelley Rosa 05-22-25 -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0f2439"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- =========== Keyword Setting Title =========== -->
+        <TextView
+            android:id="@+id/settingsTitle"
+            android:text="Keyword Settings"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#F0F0F0"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- =========== Keyword Input Box =========== -->
+        <EditText
+            android:id="@+id/inputKeyword"
+            android:hint="Enter a keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input"
+            android:padding="12dp"
+            android:textColor="#F0F0F0"
+            android:textColorHint="#A0A0A0"
+            android:fontFamily="sans-serif" />
+
+        <!-- =========== Button Row =========== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <!-- =========== Add Button =========== -->
+            <Button
+                android:id="@+id/btnAdd"
+                android:text="Add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="#438985"
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- =========== Edit Button =========== -->
+            <Button
+                android:id="@+id/btnEdit"
+                android:text="Edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="6dp"
+                android:backgroundTint="#40b4df"
+                android:textColor="#1B1C20"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- =========== Delete Button =========== -->
+            <Button
+                android:id="@+id/btnDelete"
+                android:text="Delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:backgroundTint="#c66368"
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <!-- =========== Saved Keywords Title/Header =========== -->
+        <TextView
+            android:id="@+id/listHeader"
+            android:text="Saved Keywords"
+            android:textColor="#F0F0F0"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            <!-- =========== Keyword List =========== -->
+        <ListView
+            android:id="@+id/listKeywords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#2A2A2A"
+            android:dividerHeight="1dp"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+</ScrollView>
