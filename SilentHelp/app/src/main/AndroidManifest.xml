@@ -14,13 +14,15 @@
         android:theme="@style/Theme.SilentHelp"
         tools:targetApi="31">
 
+
         <!-- Modified by Kelley Rosa 05-22-25 -->
         <activity android:name=".KeywordSettingsActivity" />
 
+
+        <!-- Modified by Carmelo Vera 06-02-25 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".HomeActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.SilentHelp">
 
             <intent-filter>
@@ -29,6 +31,8 @@
             </intent-filter>
 
         </activity>
+
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
