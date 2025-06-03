@@ -1,0 +1,14 @@
+<!-- Modified by Kelley Rosa 05-25-25 -->
+<resources>
+    <string name="app_name">SilentHelp</string>
+    <string name="keyword_settings">Keyword Settings</string>
+    <string name="enter_a_keyword">Enter a keyword</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="saved_keywords">Saved Keywords</string>
+    <string name="trigger_fake_call">Trigger Fake Call</string>
+    <string name="view_incident_log">View Incident Log</string>
+    <string name="user_settings">User Settings</string>
+    <string name="discreet_safety_tools_at_your_fingertips">Discreet safety tools at your fingertips.</string>
+</resources>

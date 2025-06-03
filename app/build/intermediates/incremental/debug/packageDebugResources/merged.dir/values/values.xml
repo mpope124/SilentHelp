@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_blue">#3CA3C6</color>
+    <color name="accent_red">#D4666C</color>
+    <color name="accent_teal">#4C9B91</color>
+    <color name="bg_blue">#172b44</color>
+    <color name="bg_drk_blue">#0F2439</color>
+    <color name="black">#FF000000</color>
+    <color name="muted_black">#222831</color>
+    <color name="muted_grey">#A4B2C1</color>
+    <color name="muted_white">#F0F4F8</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="add">Add</string>
+    <string name="app_name">SilentHelp</string>
+    <string name="delete">Delete</string>
+    <string name="discreet_safety_tools_at_your_fingertips">Discreet safety tools at your fingertips.</string>
+    <string name="edit">Edit</string>
+    <string name="enter_a_keyword">Enter a keyword</string>
+    <string name="keyword_settings">Keyword Settings</string>
+    <string name="saved_keywords">Saved Keywords</string>
+    <string name="trigger_fake_call">Trigger Fake Call</string>
+    <string name="user_settings">User Settings</string>
+    <string name="view_incident_log">View Incident Log</string>
+    <style name="Theme.SilentHelp" parent="Theme.AppCompat.DayNight.NoActionBar">
+        
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/teal_200</item>
+    </style>
+</resources>
