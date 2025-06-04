@@ -1,0 +1,10 @@
+<!-- Created by Kelley Rosa 06-02-25 -->
+
+<!-- Input Textbox Background -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid
+        android:color="@color/bg_lt_blue" />
+    <corners
+        android:radius="12dp" />
+</shape>
