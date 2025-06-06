@@ -33,6 +33,10 @@
 
         </activity>
 
+        <!-- Modified by Carmelo Vera 06-05-25 -->
+        <activity android:name=".FakeCallActivity" />
+
+
         <activity android:name=".MainActivity" />
     </application>
 

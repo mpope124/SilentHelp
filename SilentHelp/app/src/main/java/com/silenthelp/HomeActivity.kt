@@ -28,7 +28,8 @@ class HomeActivity : AppCompatActivity() {
         }
 
         fakeCallButton.setOnClickListener {
-            // TODO: Implement Fake Call functionality
+            val intent = Intent(this, FakeCallActivity::class.java)
+            startActivity(intent)
         }
 
         incidentLogButton.setOnClickListener {
