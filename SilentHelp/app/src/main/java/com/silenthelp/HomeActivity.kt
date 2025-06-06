@@ -22,7 +22,6 @@ class HomeActivity : AppCompatActivity() {
         }
 
         userSettingsButton.setOnClickListener {
-            // Placeholder — update when Colin finishes UserSettingsActivity
             val intent = Intent(this, UserSettingsActivity::class.java)
             startActivity(intent)
         }
@@ -33,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         incidentLogButton.setOnClickListener {
-            // TODO: Implement Incident Log functionality
+            startActivity(Intent(this, IncidentLogActivity::class.java))
         }
     }
 }
