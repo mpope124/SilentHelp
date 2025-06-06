@@ -33,6 +33,7 @@ id btn_add_keyword
 id btn_back
 id btn_delete_keyword
 id btn_edit_keyword
+id button_back_to_home
 id edit_delete_buttons
 id input_new_keyword
 id keyword_settings_root
@@ -40,9 +41,12 @@ id keyword_settings_title
 id recycler_level1
 id spinner_threat_level
 id textTitle
+id textView2
+id textView3
 id toolbar_keyword_settings
 layout activity_home
 layout activity_main
+layout incident_log
 layout spinner_keyword_settings_dropdown_menu
 layout spinner_keyword_settings_item_selected
 layout usersettingslayout

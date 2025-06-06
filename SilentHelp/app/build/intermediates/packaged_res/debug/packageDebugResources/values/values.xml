@@ -40,8 +40,8 @@
     <style name="Theme.SilentHelp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
     
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
+        <item name="colorPrimary">@color/bg_blue</item>
+        <item name="colorPrimaryDark">@color/bg_drk_blue</item>
+        <item name="colorAccent">@color/bg_lt_blue</item>
     </style>
 </resources>

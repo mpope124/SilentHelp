@@ -3131,6 +3131,7 @@ id btn_back
 id btn_delete_keyword
 id btn_edit_keyword
 id buttonPanel
+id button_back_to_home
 id cancel_button
 id center
 id centerCrop
@@ -3466,6 +3467,8 @@ id textSpacerNoTitle
 id textStart
 id textTitle
 id textTop
+id textView2
+id textView3
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3649,6 +3652,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout incident_log
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
