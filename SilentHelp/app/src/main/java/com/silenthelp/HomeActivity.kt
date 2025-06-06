@@ -6,8 +6,6 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R.id.btnOpenKeywordSettings
 
-
-
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

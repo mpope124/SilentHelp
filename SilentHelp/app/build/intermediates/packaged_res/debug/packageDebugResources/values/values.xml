@@ -44,4 +44,7 @@
         <item name="colorPrimaryDark">@color/bg_drk_blue</item>
         <item name="colorAccent">@color/bg_lt_blue</item>
     </style>
+    <style name="WhiteHintTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/white_70</item>
+    </style>
 </resources>

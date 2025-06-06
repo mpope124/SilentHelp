@@ -7,3 +7,12 @@
 app/build/
 *.iml
 /local.properties
+
+
+# Build output
+/build/
+/app/build/
+
+# OS junk
+.DS_Store
+Thumbs.db

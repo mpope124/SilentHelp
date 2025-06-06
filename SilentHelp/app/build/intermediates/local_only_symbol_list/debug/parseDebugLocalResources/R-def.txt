@@ -43,10 +43,14 @@ id spinner_threat_level
 id textTitle
 id textView2
 id textView3
+id text_keyword
+id text_threat_level
+id title_level1
 id toolbar_keyword_settings
 layout activity_home
 layout activity_main
 layout incident_log
+layout item_keyword
 layout spinner_keyword_settings_dropdown_menu
 layout spinner_keyword_settings_item_selected
 layout usersettingslayout
@@ -67,5 +71,6 @@ string trigger_fake_call
 string user_settings
 string view_incident_log
 style Theme.SilentHelp
+style WhiteHintTextAppearance
 xml backup_rules
 xml data_extraction_rules
