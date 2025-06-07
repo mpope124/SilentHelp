@@ -10,7 +10,7 @@
 
     <!-- Modified by Kelley Rosa 05-25-25 -->
     <color name="accent_blue">#3CA3C6</color>
-    <color name="accent_teal">#4C9B91</color>
+    <color name="accent_teal">#3A8279</color>
     <color name="accent_red">#D4666C</color>
     <color name="bg_drk_blue">#121F33</color>
     <color name="bg_lt_blue">#1A314C</color>
@@ -20,24 +20,12 @@
     <color name="muted_black">#222831</color>
     <color name="white_70">#B3FFFFFF</color>
     <color name="white_20">#33FFFFFF</color>
+    <color name="white_90">#E6E6E6</color>
+    <color name="white_50">#808080</color>
 
-
-        <!-- Base Backgrounds -->
-
-        <!-- Whites for text -->
-
-        <color name="white_90">#E6E6E6</color>
-
-        <color name="white_50">#808080</color>
-
-        <!-- Accent Colors -->
-
-
-        <!-- Level-Specific Card Backgrounds -->
-        <color name="bg_level_1">#164B5E</color>
-        <color name="bg_level_2">#245E5A</color>
-        <color name="bg_level_3">#2C4266</color>
-        <color name="bg_level_4">#5E2B2E</color>
-
-
+    <!-- Level-Specific Card Backgrounds -->
+    <color name="bg_level_1">#164B5E</color>
+    <color name="bg_level_2">#245E5A</color>
+    <color name="bg_level_3">#2C4266</color>
+    <color name="bg_level_4">#5E2B2E</color>
 </resources>

@@ -4,6 +4,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="8dp">
 
@@ -12,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:hint="Enter keyword"
+        android:hint="@string/enter_keyword"
         android:textColor="@color/white"
         android:textColorHint="@color/white_70"
         android:background="@drawable/bg_keyword_settings_input_textbox"
@@ -26,5 +27,5 @@
         android:src="@drawable/ic_delete"
         android:contentDescription="@string/delete"
         android:layout_marginStart="8dp"
-        android:tint="@color/white" />
+        app:tint="@color/white" />
 </LinearLayout>

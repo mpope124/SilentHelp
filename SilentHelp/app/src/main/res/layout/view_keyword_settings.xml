@@ -33,7 +33,7 @@
                 android:id="@+id/keyword_settings_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Keyword Settings"
+                android:text="@string/keyword_settings"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add New Keyword"
+                    android:text="@string/add_new_keyword"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -71,7 +71,8 @@
                     android:id="@+id/input_new_keyword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter keyword"
+                    android:hint="@string/enter_keyword"
+                    android:minHeight="48dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white_70"
                     android:background="@drawable/bg_keyword_settings_input_textbox"
@@ -82,6 +83,7 @@
                     android:id="@+id/spinner_threat_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp" />
 
@@ -89,7 +91,7 @@
                     android:id="@+id/btn_add_keyword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add"
+                    android:text="@string/add"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/accent_teal" />
             </LinearLayout>
@@ -113,7 +115,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 1: Social Exit"
+                    android:text="@string/level_1_social_exit"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -122,7 +124,7 @@
                     android:id="@+id/list_level1_keywords"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No keywords added"
+                    android:text="@string/no_keywords_added"
                     android:textColor="@color/white_90"
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
@@ -131,7 +133,7 @@
                     android:id="@+id/link_edit_level1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Keywords"
+                    android:text="@string/edit_keywords"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="normal"
@@ -157,7 +159,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 2: Low"
+                    android:text="@string/level_2_low"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -166,7 +168,7 @@
                     android:id="@+id/list_level2_keywords"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No keywords added"
+                    android:text="@string/no_keywords_added"
                     android:textColor="@color/white_90"
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
@@ -175,7 +177,7 @@
                     android:id="@+id/link_edit_level2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Keywords"
+                    android:text="@string/edit_keywords"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="normal"
@@ -201,7 +203,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 3: Medium"
+                    android:text="@string/level_3_medium"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -210,7 +212,7 @@
                     android:id="@+id/list_level3_keywords"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No keywords added"
+                    android:text="@string/no_keywords_added"
                     android:textColor="@color/white_90"
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
@@ -219,7 +221,7 @@
                     android:id="@+id/link_edit_level3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Keywords"
+                    android:text="@string/edit_keywords"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="normal"
@@ -245,7 +247,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 4: High"
+                    android:text="@string/level_4_high"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -254,7 +256,7 @@
                     android:id="@+id/list_level4_keywords"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No keywords added"
+                    android:text="@string/no_keywords_added"
                     android:textColor="@color/white_90"
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
@@ -263,7 +265,7 @@
                     android:id="@+id/link_edit_level4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Keywords"
+                    android:text="@string/edit_keywords"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="normal"
