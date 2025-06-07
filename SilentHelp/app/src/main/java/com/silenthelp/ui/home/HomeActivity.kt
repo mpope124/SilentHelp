@@ -1,10 +1,14 @@
-package com.silenthelp
+package com.silenthelp.ui.home
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.silenthelp.R.id.btnOpenKeywordSettings
+import com.silenthelp.ui.fakecall.FakeCallActivity
+import com.silenthelp.ui.incident.IncidentLogActivity
+import com.silenthelp.ui.keyword.KeywordSettingsActivity
+import com.silenthelp.R
+import com.silenthelp.ui.user.UserSettingsActivity
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

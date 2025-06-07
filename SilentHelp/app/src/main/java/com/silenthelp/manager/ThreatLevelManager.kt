@@ -1,5 +1,5 @@
 // Created by Kelley Rosa 06-05-25
-package com.silenthelp
+package com.silenthelp.manager
 
 class ThreatLevelManager(private val settingsManager: SettingsManager) {
 

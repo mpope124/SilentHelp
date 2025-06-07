@@ -1,13 +1,13 @@
-package com.silenthelp
+package com.silenthelp.ui.fakecall
 
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import android.media.RingtoneManager
 import android.media.Ringtone
-import android.net.Uri
+import com.silenthelp.R
+import com.silenthelp.ui.home.HomeActivity
 
 
 class FakeCallActivity : AppCompatActivity() {

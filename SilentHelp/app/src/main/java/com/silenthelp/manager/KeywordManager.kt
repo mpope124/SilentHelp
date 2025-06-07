@@ -1,5 +1,5 @@
 // Created by Kelley Rosa 06-05-25
-package com.silenthelp.data
+package com.silenthelp.manager
 
 import android.content.Context
 import android.content.SharedPreferences

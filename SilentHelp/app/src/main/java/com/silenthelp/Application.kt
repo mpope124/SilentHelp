@@ -2,7 +2,8 @@
 package com.silenthelp
 
 import android.app.Application
-import com.silenthelp.data.KeywordManager
+import com.silenthelp.manager.KeywordManager
+import com.silenthelp.manager.SettingsManager
 
 class SilentHelpApp : Application() {
 

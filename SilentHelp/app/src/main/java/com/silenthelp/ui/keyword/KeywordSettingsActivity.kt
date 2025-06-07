@@ -1,4 +1,4 @@
-package com.silenthelp
+package com.silenthelp.ui.keyword
 
 import android.os.Bundle
 import android.view.MotionEvent
@@ -7,8 +7,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.silenthelp.R
 import com.silenthelp.adapter.KeywordAdapter
-import com.silenthelp.data.KeywordManager
+import com.silenthelp.manager.KeywordManager
 import com.silenthelp.model.Keyword
 
 class KeywordSettingsActivity : AppCompatActivity() {

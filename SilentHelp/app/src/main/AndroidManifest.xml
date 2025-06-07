@@ -17,12 +17,12 @@
 
 
         <!-- Modified by Kelley Rosa 05-22-25 -->
-        <activity android:name=".KeywordSettingsActivity" />
+        <activity android:name=".ui.keyword.KeywordSettingsActivity" />
 
 
         <!-- Modified by Carmelo Vera 06-02-25 -->
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.SilentHelp">
 
@@ -34,18 +34,18 @@
         </activity>
 
         <!-- Modified by Carmelo Vera 06-05-25 -->
-        <activity android:name=".FakeCallActivity" />
+        <activity android:name=".ui.fakecall.FakeCallActivity" />
 
         <!-- Modified by Carmelo Vera 06-05-25 -->
         <!-- Colin – User Settings -->
-        <activity android:name=".UserSettingsActivity" />
+        <activity android:name=".ui.user.UserSettingsActivity" />
 
         <!-- Michael – Incident Log -->
-        <activity android:name=".IncidentLogActivity" />
+        <activity android:name=".ui.incident.IncidentLogActivity" />
 
 
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.home.MainActivity" />
     </application>
 
 </manifest>
