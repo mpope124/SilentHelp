@@ -18,6 +18,8 @@
 
         <!-- Modified by Kelley Rosa 05-22-25 -->
         <activity android:name=".ui.keyword.KeywordSettingsActivity" />
+        <activity android:name=".ui.keyword.EditKeywordsActivity" />
+
 
 
         <!-- Modified by Carmelo Vera 06-02-25 -->

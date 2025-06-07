@@ -6,6 +6,7 @@
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="edit_keywords_underline"><u>Edit Keywords</u></string>
     <!--  Threat Level Array  -->
     <string-array name="threat_levels">
         <item>Level 1: Social Exit</item>

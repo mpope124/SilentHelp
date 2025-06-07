@@ -21,6 +21,12 @@ class SettingsManager(context: Context) {
         return prefs.getStringSet(key, setOf()) ?: setOf()
     }
 
+    fun saveKeywordList(level: Int, keywords: Set<String>) {
+        val key = "level_${level}_keywords"
+        prefs.edit().putStringSet(key, keywords.map { it.lowercase() }.toSet()).apply()
+    }
+
+
     fun getAllKeywords(): Map<Int, Set<String>> {
         return (1..4).associateWith { getKeywords(it) }
     }

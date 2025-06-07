@@ -1,46 +1,64 @@
 package com.silenthelp.ui.keyword
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.silenthelp.R
-import com.silenthelp.adapter.KeywordAdapter
-import com.silenthelp.manager.KeywordManager
-import com.silenthelp.model.Keyword
+import com.silenthelp.manager.SettingsManager
+import android.graphics.Paint
+
 
 class KeywordSettingsActivity : AppCompatActivity() {
 
-    // Declare manager and adapter for keywords
-    private lateinit var keywordManager: KeywordManager
-    private lateinit var keywordAdapter: KeywordAdapter
-
-    // Declare input and list views
+    private lateinit var backButton: ImageView
     private lateinit var inputKeyword: EditText
     private lateinit var spinner: Spinner
-    private lateinit var recyclerView: RecyclerView
     private lateinit var addButton: Button
-    private lateinit var backButton: ImageView
+    private lateinit var settingsManager: SettingsManager
+
+    // Display areas for keywords under each threat level card
+    private lateinit var listLevel1: TextView
+    private lateinit var listLevel2: TextView
+    private lateinit var listLevel3: TextView
+    private lateinit var listLevel4: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_keyword_settings)
-        supportActionBar?.hide() // Hide default top bar
+        supportActionBar?.hide()
+
+        val linkEditLevel1 = findViewById<TextView>(R.id.link_edit_level1)
+        val linkEditLevel2 = findViewById<TextView>(R.id.link_edit_level2)
+        val linkEditLevel3 = findViewById<TextView>(R.id.link_edit_level3)
+        val linkEditLevel4 = findViewById<TextView>(R.id.link_edit_level4)
+
+        // Apply underline
+        linkEditLevel1.paintFlags = linkEditLevel1.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        linkEditLevel2.paintFlags = linkEditLevel2.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        linkEditLevel3.paintFlags = linkEditLevel3.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        linkEditLevel4.paintFlags = linkEditLevel4.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
 
         // Initialize views
+        backButton = findViewById(R.id.btn_back)
         inputKeyword = findViewById(R.id.input_new_keyword)
         spinner = findViewById(R.id.spinner_threat_level)
-        recyclerView = findViewById(R.id.recycler_level1)
         addButton = findViewById(R.id.btn_add_keyword)
-        backButton = findViewById(R.id.btn_back)
 
-        // Initialize KeywordManager
-        keywordManager = KeywordManager(applicationContext)
+        listLevel1 = findViewById(R.id.list_level1_keywords)
+        listLevel2 = findViewById(R.id.list_level2_keywords)
+        listLevel3 = findViewById(R.id.list_level3_keywords)
+        listLevel4 = findViewById(R.id.list_level4_keywords)
 
-        // Initialize Spinner for threat levels
+        settingsManager = SettingsManager(applicationContext)
+
+        // Set up back button
+        backButton.setOnClickListener {
+            finish()
+        }
+
+        // Set up threat level spinner
         val spinnerAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.threat_levels,
@@ -49,64 +67,72 @@ class KeywordSettingsActivity : AppCompatActivity() {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_keyword_settings_dropdown_menu)
         spinner.adapter = spinnerAdapter
 
-        // Handle Back Button click
-        backButton.setOnClickListener {
-            finish()
-        }
-
-        // Initialize RecyclerView and its adapter
-        keywordAdapter = KeywordAdapter(
-            keywordManager.getKeywords().toMutableList(),
-            onEdit = { index, keyword ->
-                inputKeyword.setText(keyword.word)
-                spinner.setSelection(keyword.level)
-                keywordAdapter.setEditingIndex(index)
-            },
-            onDelete = { index ->
-                keywordManager.removeKeyword(index)
-                keywordAdapter.updateData(keywordManager.getKeywords())
-            }
-        )
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = keywordAdapter
-
-        // Add or update keyword on button click
+        // Handle Add button click
         addButton.setOnClickListener {
             val word = inputKeyword.text.toString().trim()
-            val level = spinner.selectedItemPosition
+            val level = spinner.selectedItemPosition + 1 // Level indices start from 1
 
             if (word.isBlank()) {
                 Toast.makeText(this, "Please enter a keyword", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val currentIndex = keywordAdapter.getEditingIndex()
-            if (currentIndex != null) {
-                // Update keyword
-                keywordManager.updateKeyword(currentIndex, Keyword(word, level))
-                keywordAdapter.setEditingIndex(null)
-            } else {
-                // Add new keyword
-                keywordManager.addKeyword(Keyword(word, level))
+            val existing = settingsManager.getKeywords(level)
+
+            if (existing.any { it.equals(word, ignoreCase = true) }) {
+                Toast.makeText(this, "Keyword already exists", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
-            // Refresh list and clear input
+            val updated = existing.toMutableSet()
+            updated.add(word)
+            settingsManager.saveKeywordList(level, updated)
+
+            Toast.makeText(this, "Keyword added", Toast.LENGTH_SHORT).show()
             inputKeyword.text.clear()
             spinner.setSelection(0)
-            keywordAdapter.updateData(keywordManager.getKeywords())
+            refreshKeywordLists()
         }
+
+        // Launch Edit screen for each level
+        findViewById<TextView>(R.id.link_edit_level1).setOnClickListener {
+            launchEditScreen(1)
+        }
+        findViewById<TextView>(R.id.link_edit_level2).setOnClickListener {
+            launchEditScreen(2)
+        }
+        findViewById<TextView>(R.id.link_edit_level3).setOnClickListener {
+            launchEditScreen(3)
+        }
+        findViewById<TextView>(R.id.link_edit_level4).setOnClickListener {
+            launchEditScreen(4)
+        }
+
+        // Initial keyword display
+        refreshKeywordLists()
     }
 
-    // Hide keyboard and collapse edit state on outside touch
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        val view = currentFocus
-        if (view != null) {
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-            view.clearFocus()
+    private fun refreshKeywordLists() {
+        listLevel1.text = formatList(settingsManager.getKeywords(1))
+        listLevel2.text = formatList(settingsManager.getKeywords(2))
+        listLevel3.text = formatList(settingsManager.getKeywords(3))
+        listLevel4.text = formatList(settingsManager.getKeywords(4))
+    }
 
-            keywordAdapter.setEditingIndex(null)
+    private fun formatList(set: Set<String>): String {
+        return if (set.isEmpty()) "No keywords added" else set.joinToString("\n")
+    }
+
+    private fun launchEditScreen(level: Int) {
+        val intent = Intent(this, EditKeywordsActivity::class.java)
+        intent.putExtra("threat_level", level)
+        startActivityForResult(intent, 1000)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1000 && resultCode == RESULT_OK) {
+            refreshKeywordLists()
         }
-        return super.dispatchTouchEvent(ev)
     }
 }

@@ -20,4 +20,24 @@
     <color name="muted_black">#222831</color>
     <color name="white_70">#B3FFFFFF</color>
     <color name="white_20">#33FFFFFF</color>
+
+
+        <!-- Base Backgrounds -->
+
+        <!-- Whites for text -->
+
+        <color name="white_90">#E6E6E6</color>
+
+        <color name="white_50">#808080</color>
+
+        <!-- Accent Colors -->
+
+
+        <!-- Level-Specific Card Backgrounds -->
+        <color name="bg_level_1">#164B5E</color>
+        <color name="bg_level_2">#245E5A</color>
+        <color name="bg_level_3">#2C4266</color>
+        <color name="bg_level_4">#5E2B2E</color>
+
+
 </resources>
