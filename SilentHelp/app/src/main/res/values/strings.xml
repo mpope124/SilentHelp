@@ -29,4 +29,5 @@
     <string name="level_2_low">Level 2: Low</string>
     <string name="level_3_medium">Level 3: Medium</string>
     <string name="level_4_high">Level 4: High</string>
+    <string name="save">Save</string>
 </resources>

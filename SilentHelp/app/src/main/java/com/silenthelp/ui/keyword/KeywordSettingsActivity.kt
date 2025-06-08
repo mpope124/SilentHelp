@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R
 import com.silenthelp.manager.SettingsManager
 import android.graphics.Paint
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+
 
 
 class KeywordSettingsActivity : AppCompatActivity() {
@@ -135,4 +138,20 @@ class KeywordSettingsActivity : AppCompatActivity() {
             refreshKeywordLists()
         }
     }
+
+    // Hide Keyboard
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val view = currentFocus
+        if (view != null && ev.action == MotionEvent.ACTION_DOWN) {
+            val outRect = android.graphics.Rect()
+            view.getGlobalVisibleRect(outRect)
+            if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
+                view.clearFocus()
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
 }

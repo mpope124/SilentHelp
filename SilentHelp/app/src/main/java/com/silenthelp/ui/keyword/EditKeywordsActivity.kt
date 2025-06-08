@@ -66,4 +66,5 @@ class EditKeywordsActivity : AppCompatActivity() {
 
         keywordViews.add(Pair(editText, deleteIcon))
     }
+
 }
