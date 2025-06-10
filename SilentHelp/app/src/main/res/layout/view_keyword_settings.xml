@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Created by Kelley Rosa 05-22-25 -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -11,7 +13,7 @@
         android:orientation="vertical"
         android:paddingBottom="32dp">
 
-        <!-- Top Bar -->
+        <!-- Top Header Bar -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -19,6 +21,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp">
 
+            <!-- Back Arrow -->
             <ImageView
                 android:id="@+id/btn_back"
                 android:layout_width="24dp"
@@ -29,6 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
+            <!-- Keyword Settings Header -->
             <TextView
                 android:id="@+id/keyword_settings_title"
                 android:layout_width="wrap_content"
@@ -58,6 +62,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Add New Keyword Header -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,26 +72,33 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
 
+                <!-- Enter Keyword Textbox -->
                 <EditText
                     android:id="@+id/input_new_keyword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textCursorDrawable="@drawable/cursor_white"
                     android:hint="@string/enter_keyword"
+                    android:importantForAutofill="no"
                     android:minHeight="48dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white_70"
+                    android:textColorHint="@color/white"
                     android:background="@drawable/bg_keyword_settings_input_textbox"
                     android:padding="10dp"
                     android:inputType="text" />
 
+                <!-- Select Threat Level Spinner -->
                 <Spinner
                     android:id="@+id/spinner_threat_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
+                    android:background="@drawable/bg_spinner_rounded"
+                    android:popupBackground="@drawable/bg_spinner_rounded"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp" />
 
+                <!-- Add Button -->
                 <Button
                     android:id="@+id/btn_add_keyword"
                     android:layout_width="wrap_content"
@@ -112,6 +124,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Level 1: Header -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,6 +133,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <!-- Level 1: Keyword List -->
                 <TextView
                     android:id="@+id/list_level1_keywords"
                     android:layout_width="match_parent"
@@ -129,6 +143,7 @@
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
 
+                <!-- Level 1: Edit Keywords Link -->
                 <TextView
                     android:id="@+id/link_edit_level1"
                     android:layout_width="wrap_content"
@@ -156,6 +171,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Level 2: Header -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,6 +180,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <!-- Level 2: Keyword List -->
                 <TextView
                     android:id="@+id/list_level2_keywords"
                     android:layout_width="match_parent"
@@ -173,6 +190,7 @@
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
 
+                <!-- Level 2: Edit Keywords Link -->
                 <TextView
                     android:id="@+id/link_edit_level2"
                     android:layout_width="wrap_content"
@@ -200,6 +218,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Level 3: Header -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -208,6 +227,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <!-- Level 3: Keyword List -->
                 <TextView
                     android:id="@+id/list_level3_keywords"
                     android:layout_width="match_parent"
@@ -217,6 +237,7 @@
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
 
+                <!-- Level 3: Edit Keywords Link -->
                 <TextView
                     android:id="@+id/link_edit_level3"
                     android:layout_width="wrap_content"
@@ -244,6 +265,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Level 4: Header -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -252,6 +274,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <!-- Level 4: Keyword List -->
                 <TextView
                     android:id="@+id/list_level4_keywords"
                     android:layout_width="match_parent"
@@ -261,6 +284,7 @@
                     android:textSize="17sp"
                     android:layout_marginTop="4dp" />
 
+                <!-- Level 4: Edit Keywords Link -->
                 <TextView
                     android:id="@+id/link_edit_level4"
                     android:layout_width="wrap_content"
@@ -272,6 +296,5 @@
                     android:layout_marginTop="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
 </ScrollView>

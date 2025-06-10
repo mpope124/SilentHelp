@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Created by Kelley Rosa 06-01-25 -->
 
-<!--
- This layout controls how each item in the Spinner's dropdown
- list looks when the user taps the Spinner to view options.
--->
-
+<!--Spinner's dropdown list -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:padding="8dp"
     android:textColor="@color/white"
-    android:background="@color/bg_blue" />
+    android:background="@drawable/bg_spinner_rounded"
+    android:textSize="16sp"/>
+

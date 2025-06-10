@@ -3,6 +3,9 @@ package com.silenthelp.manager
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.silenthelp.model.Contact
 
 class SettingsManager(context: Context) {
 
@@ -30,4 +33,16 @@ class SettingsManager(context: Context) {
     fun getAllKeywords(): Map<Int, Set<String>> {
         return (1..4).associateWith { getKeywords(it) }
     }
+
+    fun saveContacts(contacts: List<Contact>) {
+        val json = Gson().toJson(contacts)
+        prefs.edit().putString("user_contacts", json).apply()
+    }
+
+    fun getContacts(): List<Contact> {
+        val json = prefs.getString("user_contacts", "[]")
+        val type = object : TypeToken<List<Contact>>() {}.type
+        return Gson().fromJson(json, type)
+    }
+
 }

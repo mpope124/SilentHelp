@@ -1,3 +1,4 @@
+// Created by Kelley Rosa 06-07-25
 package com.silenthelp.adapter
 
 import android.view.LayoutInflater
@@ -26,12 +27,14 @@ class KeywordAdapter(
         val buttonLayout: LinearLayout = itemView.findViewById(R.id.edit_delete_buttons)
     }
 
+    // Creates a new row for keyword list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KeywordViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_keyword, parent, false)
         return KeywordViewHolder(view)
     }
 
+    // Binds keyword to a threat level
     override fun onBindViewHolder(holder: KeywordViewHolder, position: Int) {
         val keyword = keywordList[position]
         holder.keywordText.text = keyword.word

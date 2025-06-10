@@ -40,6 +40,7 @@
         android:visibility="gone"
         android:layout_marginTop="8dp">
 
+        <!-- Edit Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_edit_keyword"
             android:text="@string/edit"
@@ -52,6 +53,7 @@
             app:strokeColor="@color/white"
             android:textColor="@color/white" />
 
+        <!-- Delete Icon -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_delete_keyword"
             android:text="@string/delete"
