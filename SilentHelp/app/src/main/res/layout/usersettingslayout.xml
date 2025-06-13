@@ -10,44 +10,43 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
 
+        <!-- Top Header Bar -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/bg_blue">
+            android:background="@color/bg_blue"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
 
+            <!-- Back Arrow -->
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_back_white"
+                android:contentDescription="@string/back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_back_white"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="16dp" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
+            <!-- Keyword Settings Header -->
             <TextView
-                android:id="@+id/user_settings_title"
+                android:id="@+id/keyword_settings_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/string_user_settings"
-                android:textColor="#FFFFFF"
+                android:text="@string/user_settings"
+                android:textColor="@color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -60,7 +59,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/textView"
@@ -86,13 +86,25 @@
                     android:inputType="phone"
                     android:text="@string/phone" />
 
-                <Button
-                    android:id="@+id/button"
+                <!-- Select Threat Level Spinner -->
+                <Spinner
+                    android:id="@+id/spinner_threat_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/teal_700"
-                    android:text="Add Contact" />
+                    android:minHeight="48dp"
+                    android:background="@drawable/bg_spinner_rounded"
+                    android:popupBackground="@drawable/bg_spinner_rounded"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp" />
 
+                <!-- Add Button -->
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_contact"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/accent_teal" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

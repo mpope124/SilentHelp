@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.silenthelp">
 
+    <!-- Modified by Kelley Rosa 06-10-25 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".SilentHelpApp"
         android:allowBackup="true"
@@ -18,7 +21,10 @@
 
         <!-- Modified by Kelley Rosa 05-22-25 -->
         <activity android:name=".ui.keyword.KeywordSettingsActivity" />
+        <!-- Modified by Kelley Rosa 06-07-25 -->
         <activity android:name=".ui.keyword.EditKeywordsActivity" />
+        <activity android:name=".ui.fakecall.FakeCallActiveActivity"/>
+
 
 
 

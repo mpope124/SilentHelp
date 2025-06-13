@@ -5,6 +5,6 @@ package com.silenthelp.model
 data class Contact(
     val name: String,
     val phone: String,
-    var threatLevel: Int // 0 = low, 1 = medium, etc.
+    var level: Int
 )
 

@@ -5,15 +5,12 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import android.media.Ringtone
+import android.util.Log
 import com.silenthelp.R
-import com.silenthelp.ui.home.HomeActivity
-
 
 class FakeCallActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
-    private var ringtone: Ringtone? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,27 +21,32 @@ class FakeCallActivity : AppCompatActivity() {
         mediaPlayer.isLooping = true
         mediaPlayer.start()
 
-        val btnAnswer = findViewById<Button>(R.id.btnAnswer)
-        val btnDecline = findViewById<Button>(R.id.btnDecline)
-
-        val goToHome = {
-            if (mediaPlayer.isPlaying) {
-                mediaPlayer.stop()
-                mediaPlayer.release()
-            }
-            startActivity(Intent(this, HomeActivity::class.java))
+        findViewById<Button>(R.id.btnAnswer).setOnClickListener {
+            stopRingtone()
+            startActivity(Intent(this, FakeCallActiveActivity::class.java))
             finish()
         }
 
-        btnAnswer.setOnClickListener { goToHome() }
-        btnDecline.setOnClickListener { goToHome() }
+        findViewById<Button>(R.id.btnDecline).setOnClickListener {
+            stopRingtone()
+            finish()
+        }
     }
+
+    private fun stopRingtone() {
+        try {
+            if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
+                mediaPlayer.stop()
+            }
+            mediaPlayer.release()
+        } catch (e: IllegalStateException) {
+            Log.e("FakeCall", "MediaPlayer state error: ${e.message}")
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
-        if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
-            mediaPlayer.stop()
-            mediaPlayer.release()
-        }
+        stopRingtone()
     }
 }
