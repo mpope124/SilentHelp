@@ -1,0 +1,22 @@
+
+<!--  app/src/debug/AndroidManifest.xml  -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.silenthelp">
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+<application>
+<!--  Make sure the class name matches the package  -->
+<activity
+android:name="com.silenthelp.debug.MicTestActivity"
+android:exported="true"
+android:label="Mic Test">
+
+<!--  Launcher intent-filter  -->
+<intent-filter>
+<action android:name="android.intent.action.MAIN"/>
+<category android:name="android.intent.category.LAUNCHER"/>
+</intent-filter>
+
+</activity>
+</application>
+</manifest>
