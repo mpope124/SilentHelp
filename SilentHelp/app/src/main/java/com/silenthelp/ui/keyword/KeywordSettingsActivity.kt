@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R
-import com.silenthelp.manager.SettingsManager
+import com.silenthelp.core.manager.SettingsManager
 import android.graphics.Paint
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager

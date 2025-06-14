@@ -1,9 +1,9 @@
 // Created by Kelley Rosa 06-05-25
-package com.silenthelp
+package com.silenthelp.core
 
 import android.app.Application
-import com.silenthelp.manager.KeywordManager
-import com.silenthelp.manager.SettingsManager
+import com.silenthelp.core.manager.KeywordManager
+import com.silenthelp.core.manager.SettingsManager
 
 class SilentHelpApp : Application() {
 

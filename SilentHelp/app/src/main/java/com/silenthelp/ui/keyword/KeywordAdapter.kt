@@ -1,5 +1,5 @@
 // Created by Kelley Rosa 06-07-25
-package com.silenthelp.adapter
+package com.silenthelp.ui.keyword
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.silenthelp.R
-import com.silenthelp.model.Keyword
+import com.silenthelp.core.model.Keyword
 
 class KeywordAdapter(
     private var keywordList: MutableList<Keyword>,

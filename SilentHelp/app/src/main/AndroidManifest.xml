@@ -5,9 +5,10 @@
 
     <!-- Modified by Kelley Rosa 06-10-25 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
-        android:name=".SilentHelpApp"
+        android:name=".core.SilentHelpApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

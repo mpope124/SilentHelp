@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.silenthelp.R
-import com.silenthelp.model.Contact
-import com.silenthelp.manager.SettingsManager
+import com.silenthelp.core.model.Contact
+import com.silenthelp.core.manager.SettingsManager
 
 class UserSettingsActivity : AppCompatActivity() {
 

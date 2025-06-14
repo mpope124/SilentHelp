@@ -1,5 +1,5 @@
 // Created by Kelley Rosa 06-10-25
-package com.silenthelp.model
+package com.silenthelp.core.model
 
 // Initialize Contact Class
 data class Contact(

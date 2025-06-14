@@ -1,4 +1,5 @@
-package com.silenthelp.manager
+// Created by Kelley Rosa
+package com.silenthelp.core.manager
 
 class ThreatLevelManager(private val settingsManager: SettingsManager) {
 

@@ -2,11 +2,16 @@ package com.silenthelp.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.silenthelp.R
-import com.silenthelp.manager.SettingsManager
+import com.silenthelp.core.ThreatPolicy
+import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.ui.fakecall.FakeCallActivity
 import com.silenthelp.ui.incident.IncidentLogActivity
 import com.silenthelp.ui.keyword.KeywordSettingsActivity
@@ -20,8 +25,20 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        // handle the cut-out / status-bar inset
+        val root = findViewById<View>(R.id.root)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
+            val topInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
+            v.setPadding(v.paddingLeft, topInset, v.paddingRight, v.paddingBottom)
+            WindowInsetsCompat.CONSUMED
+        }
+
         settingsManager = SettingsManager(this)
 
+        //==========================================================================
+        // Home Screen Navigation Buttons
+        //==========================================================================
         findViewById<Button>(R.id.btnOpenKeywordSettings)
             .setOnClickListener { startActivity(Intent(this, KeywordSettingsActivity::class.java)) }
 
@@ -34,37 +51,48 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnIncidentLog)
             .setOnClickListener { startActivity(Intent(this, IncidentLogActivity::class.java)) }
 
-        checkAlertPopup()               // handle return from call
+        maybeShowAlertedDialog()
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setIntent(intent)          // make the new extras visible
-        checkAlertPopup()
+        setIntent(intent)
+        maybeShowAlertedDialog()
     }
-
 
     override fun onResume() {
         super.onResume()
-        checkAlertPopup()               // safety net for rotation, etc.
+        maybeShowAlertedDialog()
     }
 
-    // ------------------------------------------------------------------------
+    /* ───────────────────── post-call pop-up helper ───────────────────── */
 
-    private fun checkAlertPopup() {
-        val names = intent.getStringArrayExtra("alerted_contacts") ?: return
-        if (names.isEmpty()) return
+    private fun maybeShowAlertedDialog() {
+        val level = intent.getIntExtra("threat_level", 0)
+        if (level == 0) return
+
+        val names = intent.getStringArrayExtra("alerted_contacts") ?: arrayOf()
+        val lat   = intent.getDoubleExtra("lat", 0.0)
+        val lon   = intent.getDoubleExtra("lon", 0.0)
+
+        // Build the message from the shared template
+        var message = ThreatPolicy.LEVEL_TEMPLATE[level] ?: ""
+        message = message.replace("##LOC##", "$lat, $lon")
+
+        if (names.isNotEmpty()) {
+            message += "\n\nContact(s): ${names.joinToString()}"
+        }
 
         AlertDialog.Builder(this)
-            .setMessage(
-                if (names.size == 1)
-                    "A text was sent to ${names[0]}"
-                else
-                    "Texts were sent to: ${names.joinToString()}"
-            )
+            .setTitle("Silent Help – Level $level")
+            .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
 
-        intent.removeExtra("alerted_contacts")   // prevent repeat dialogs
+        // Clear extras
+        intent.removeExtra("threat_level")
+        intent.removeExtra("alerted_contacts")
+        intent.removeExtra("lat")
+        intent.removeExtra("lon")
     }
 }

@@ -1,11 +1,11 @@
-// Created by Kelley Rosa 06-05-25
-package com.silenthelp.manager
+// Created by Kelley Rosa
+package com.silenthelp.core.manager
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.silenthelp.model.Keyword
+import com.silenthelp.core.model.Keyword
 
 class KeywordManager(context: Context) {
 

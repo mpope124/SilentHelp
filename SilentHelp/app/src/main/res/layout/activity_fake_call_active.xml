@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -23,4 +24,15 @@
     android:text="Hang Up"
     android:backgroundTint="@color/accent_red"
     android:textColor="@color/white"/>
+
+    <!-- live speech transcript -->
+    <TextView
+        android:id="@+id/tvTranscript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Transcript will appear here"
+        android:textColor="@color/white"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>

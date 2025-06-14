@@ -1,4 +1,4 @@
-package com.silenthelp.model
+package com.silenthelp.core.model
 
 data class DetectionLog(
     val phrase: String,

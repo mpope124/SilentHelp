@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R
-import com.silenthelp.manager.SettingsManager
+import com.silenthelp.core.manager.SettingsManager
 
 class EditKeywordsActivity : AppCompatActivity() {
 
