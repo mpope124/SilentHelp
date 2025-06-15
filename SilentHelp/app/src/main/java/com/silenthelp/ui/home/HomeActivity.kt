@@ -68,28 +68,29 @@ class HomeActivity : AppCompatActivity() {
     /* ───────────────────── post-call pop-up helper ───────────────────── */
 
     private fun maybeShowAlertedDialog() {
-        val level = intent.getIntExtra("threat_level", 0)
-        if (level == 0) return
+        val lvl   = intent.getIntExtra("threat_level", 0)
+        if (lvl == 0) return
 
         val names = intent.getStringArrayExtra("alerted_contacts") ?: arrayOf()
         val lat   = intent.getDoubleExtra("lat", 0.0)
         val lon   = intent.getDoubleExtra("lon", 0.0)
 
-        // Build the message from the shared template
-        var message = ThreatPolicy.LEVEL_TEMPLATE[level] ?: ""
-        message = message.replace("##LOC##", "$lat, $lon")
+        val nameText = if (names.isNotEmpty())
+            names.joinToString()                  // “Mom”  or  “Mom, Alice”
+        else
+            "—"                                   // fallback if somehow empty
 
-        if (names.isNotEmpty()) {
-            message += "\n\nContact(s): ${names.joinToString()}"
-        }
+        var msg = ThreatPolicy.LEVEL_TEMPLATE[lvl] ?: ""
+        msg = msg.replace("##LOC##", "$lat, $lon")
+            .replace("##NAME##", nameText)
 
         AlertDialog.Builder(this)
-            .setTitle("Silent Help – Level $level")
-            .setMessage(message)
+            .setTitle("Silent Help – Level $lvl")
+            .setMessage(msg)
             .setPositiveButton("OK", null)
             .show()
 
-        // Clear extras
+        // clear so it won’t repeat
         intent.removeExtra("threat_level")
         intent.removeExtra("alerted_contacts")
         intent.removeExtra("lat")

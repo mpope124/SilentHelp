@@ -20,6 +20,7 @@ class KeywordSettingsActivity : AppCompatActivity() {
     private lateinit var addButton: Button
     private lateinit var settingsManager: SettingsManager
 
+
     // Display areas for keywords under each threat level card
     private lateinit var listLevel1: TextView
     private lateinit var listLevel2: TextView

@@ -19,7 +19,6 @@ import com.silenthelp.R
 import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.voice.KeywordDetector
 import com.silenthelp.voice.MicWrapper
-import com.silenthelp.core.ThreatPolicy
 
 
 class FakeCallActiveActivity : AppCompatActivity() {
@@ -28,8 +27,8 @@ class FakeCallActiveActivity : AppCompatActivity() {
 
     private lateinit var settings: SettingsManager
     private var mic: MicWrapper? = null
-    private lateinit var l1Detector: KeywordDetector
-    private lateinit var l2Detector: KeywordDetector
+    private lateinit var detectors: Map<Int, KeywordDetector>
+
 
     private val contactsAlerted = mutableSetOf<String>()
     private var highestLevel = 0
@@ -60,9 +59,10 @@ class FakeCallActiveActivity : AppCompatActivity() {
         tvTranscript = findViewById(R.id.tvTranscript)
         settings = SettingsManager(this)
 
-        seedKeywordsOnce()
-        l1Detector = KeywordDetector(settings.getKeywords(1))
-        l2Detector = KeywordDetector(settings.getKeywords(2))
+
+        detectors = (1..4).associateWith { lvl ->
+            KeywordDetector(settings.getKeywords(lvl))   // ← nothing hard-coded
+        }
 
         findViewById<Button>(R.id.btnHangUp).setOnClickListener { endCall() }
 
@@ -115,9 +115,11 @@ class FakeCallActiveActivity : AppCompatActivity() {
             tvTranscript.text = (if (isFinal) "Final:   " else "Partial: ") + text
         }
 
-        when {
-            l2Detector.detect(text).isNotEmpty() -> handleHit(2)
-            l1Detector.detect(text).isNotEmpty() -> handleHit(1)
+        for (level in 4 downTo 1) {
+            if (detectors[level]?.detect(text)?.isNotEmpty() == true) {
+                handleHit(level)
+                break
+            }
         }
     }
 
@@ -151,15 +153,6 @@ class FakeCallActiveActivity : AppCompatActivity() {
         }
         startActivity(intent)
         finish()
-    }
-
-
-    private fun seedKeywordsOnce() {
-        if (settings.getKeywords(1).isEmpty()) {
-            settings.addKeyword("help", 1)
-            settings.addKeyword("hello", 1)
-            settings.addKeyword("red", 2)
-        }
     }
 
     @SuppressLint("MissingPermission")
