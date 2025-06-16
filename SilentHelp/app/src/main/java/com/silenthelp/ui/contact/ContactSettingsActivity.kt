@@ -1,4 +1,4 @@
-package com.silenthelp.ui.user
+package com.silenthelp.ui.contact
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -7,21 +7,18 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.silenthelp.R
 import com.silenthelp.core.model.Contact
 import com.silenthelp.core.manager.SettingsManager
 
-class UserSettingsActivity : AppCompatActivity() {
+class ContactSettingsActivity : AppCompatActivity() {
 
     private lateinit var settingsManager: SettingsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.usersettingslayout)
+        setContentView(R.layout.activity_new_contact)
 
         // Initialize SettingsManager
         settingsManager = SettingsManager(this)

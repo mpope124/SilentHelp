@@ -35,4 +35,8 @@
     <string name="name">Name</string>
     <string name="new_contact">+ New Contact</string>
     <string name="add_contact">Add Contact</string>
+    <string name="accessibility_service_description">
+  SilentHelp volume-button trigger
+</string>
+
 </resources>

@@ -3,58 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.silenthelp">
 
-    <!-- Modified by Kelley Rosa 06-10-25 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- ============================================================
+     RUNTIME PERMISSIONS
+     ============================================================ -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
 
     <application
         android:name=".core.SilentHelpApp"
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.SilentHelp"
         tools:targetApi="31">
 
+        <!-- ========================================================
+         ACCESSIBILITY SERVICE — VOLUME KEY COMBO
+         ======================================================== -->
+        <service
+            android:name=".trigger.VolumeButtonService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config"/>
+        </service>
 
-        <!-- Modified by Kelley Rosa 05-22-25 -->
-        <activity android:name=".ui.keyword.KeywordSettingsActivity" />
-        <!-- Modified by Kelley Rosa 06-07-25 -->
-        <activity android:name=".ui.keyword.EditKeywordsActivity" />
-        <activity android:name=".ui.fakecall.FakeCallActiveActivity"/>
-
-
-
-
-        <!-- Modified by Carmelo Vera 06-02-25 -->
+        <!-- ========================================================
+         ACTIVITIES
+         ======================================================== -->
+        <!-- Home (Carmelo Vera 06-02-25)-->
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.SilentHelp">
-
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
 
-        <!-- Modified by Carmelo Vera 06-05-25 -->
-        <activity android:name=".ui.fakecall.FakeCallActivity" />
+        <!-- Fake-call screens -->
+        <activity android:name=".ui.fakecall.FakeCallActivity"/>            <!-- Carmelo Vera 06-05-25 -->
+        <activity android:name=".ui.fakecall.FakeCallActiveActivity"/>      <!-- Kelley Rosa 06-07-25 -->
 
-        <!-- Modified by Carmelo Vera 06-05-25 -->
-        <!-- Colin – User Settings -->
-        <activity android:name=".ui.user.UserSettingsActivity" />
+        <!-- Keyword management -->
+        <activity android:name=".ui.keyword.KeywordSettingsActivity"/>      <!-- Kelley Rosa 06-10-25 -->
+        <activity android:name=".ui.keyword.EditKeywordsActivity"/>         <!-- Kelley Rosa 06-07-25 -->
 
-        <!-- Michael – Incident Log -->
-        <activity android:name=".ui.incident.IncidentLogActivity" />
-
-
-
-        <activity android:name=".ui.home.MainActivity" />
+        <!-- User settings & incident log -->
+        <activity
+            android:name=".ui.settings.SettingsActivity" android:exported="false" />
+        <activity android:name=".ui.contact.ContactSettingsActivity"/>      <!-- Colin 06-05-25 -->
+        <activity android:name=".ui.incident.IncidentLogActivity"/>         <!-- Michael 06-05-25 -->
     </application>
-
 </manifest>

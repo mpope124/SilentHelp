@@ -30,12 +30,6 @@
         android:text="@string/view_incident_log" />
 
     <Button
-        android:id="@+id/btnOpenKeywordSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/keyword_settings" />
-
-    <Button
         android:id="@+id/btnOpenUserSettings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

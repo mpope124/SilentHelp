@@ -14,8 +14,8 @@ import com.silenthelp.core.ThreatPolicy
 import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.ui.fakecall.FakeCallActivity
 import com.silenthelp.ui.incident.IncidentLogActivity
-import com.silenthelp.ui.keyword.KeywordSettingsActivity
-import com.silenthelp.ui.user.UserSettingsActivity
+import com.silenthelp.ui.contact.ContactSettingsActivity
+import com.silenthelp.ui.settings.SettingsActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -36,14 +36,21 @@ class HomeActivity : AppCompatActivity() {
 
         settingsManager = SettingsManager(this)
 
+
+        // Check Permission Mic and Location
+        if (!settingsManager.hasSeenRationale()) {
+            showPermissionRationale()
+        } else {
+            maybeShowAlertedDialog()
+        }
+
+
+
         //==========================================================================
         // Home Screen Navigation Buttons
         //==========================================================================
-        findViewById<Button>(R.id.btnOpenKeywordSettings)
-            .setOnClickListener { startActivity(Intent(this, KeywordSettingsActivity::class.java)) }
-
         findViewById<Button>(R.id.btnOpenUserSettings)
-            .setOnClickListener { startActivity(Intent(this, UserSettingsActivity::class.java)) }
+            .setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java)) }
 
         findViewById<Button>(R.id.btnFakeCall)
             .setOnClickListener { startActivity(Intent(this, FakeCallActivity::class.java)) }
@@ -52,6 +59,21 @@ class HomeActivity : AppCompatActivity() {
             .setOnClickListener { startActivity(Intent(this, IncidentLogActivity::class.java)) }
 
         maybeShowAlertedDialog()
+    }
+
+    private fun showPermissionRationale() {
+        AlertDialog.Builder(this)
+            .setTitle("Why Silent Help needs Mic & Location")
+            .setMessage(
+                "• Microphone: so the app can listen for your safety keywords during a fake call.\n\n"
+                        + "• Location: so your trusted contacts receive coordinates if you use higher threat levels.\n\n"
+                        + "You'll be asked for these permissions the first time you start a fake call."
+            )
+            .setPositiveButton("Got it") { _, _ ->
+                settingsManager.markRationaleSeen()
+                maybeShowAlertedDialog()          // handle any pending pop-up
+            }
+            .show()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -76,7 +98,7 @@ class HomeActivity : AppCompatActivity() {
         val lon   = intent.getDoubleExtra("lon", 0.0)
 
         val nameText = if (names.isNotEmpty())
-            names.joinToString()                  // “Mom”  or  “Mom, Alice”
+            names.joinToString()
         else
             "—"                                   // fallback if somehow empty
 
