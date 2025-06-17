@@ -1,3 +1,5 @@
+// Manages the keyword-entry UI: displays existing keywords per level, allows adding new keywords, and launches the edit screen.
+// Created by Kelley Rosa
 package com.silenthelp.ui.keyword
 
 import android.content.Intent
@@ -13,38 +15,52 @@ import android.view.inputmethod.InputMethodManager
 
 
 class KeywordSettingsActivity : AppCompatActivity() {
-
+    // =========================================================================
+    // VIEW REFERENCES
+    // =========================================================================
+    /** Back arrow in header */
     private lateinit var backButton: ImageView
+    /** Text field to enter a new keyword */
     private lateinit var inputKeyword: EditText
+    /** Dropdown to choose threat level */
     private lateinit var spinner: Spinner
+    /** Add button to add the entered keyword */
     private lateinit var addButton: Button
-    private lateinit var settingsManager: SettingsManager
 
-
-    // Display areas for keywords under each threat level card
+    /** Display Textview for each threat level card */
     private lateinit var listLevel1: TextView
     private lateinit var listLevel2: TextView
     private lateinit var listLevel3: TextView
     private lateinit var listLevel4: TextView
 
+    /** Manager for storing and retrieving keyword data */
+    private lateinit var settingsManager: SettingsManager
+
+    // =========================================================================
+    // ACTIVITY LIFECYCLE
+    // =========================================================================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.view_keyword_settings)
+
+        /** Set Layout for keyword settings */
+        setContentView(R.layout.activity_keyword_settings)
+
+        /** Hides Global ActionBar */
         supportActionBar?.hide()
 
+        /** Underlines edit section links for each threat level card */
         val linkEditLevel1 = findViewById<TextView>(R.id.link_edit_level1)
         val linkEditLevel2 = findViewById<TextView>(R.id.link_edit_level2)
         val linkEditLevel3 = findViewById<TextView>(R.id.link_edit_level3)
         val linkEditLevel4 = findViewById<TextView>(R.id.link_edit_level4)
 
-        // Apply underline
-        linkEditLevel1.paintFlags = linkEditLevel1.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        linkEditLevel2.paintFlags = linkEditLevel2.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        linkEditLevel3.paintFlags = linkEditLevel3.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        linkEditLevel4.paintFlags = linkEditLevel4.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        listOf(linkEditLevel1, linkEditLevel2, linkEditLevel3, linkEditLevel4).forEach { tv ->
+            tv.paintFlags = tv.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        }
 
-
-        // Initialize views
+        // =========================================================================
+        // BIND VIEWS
+        // =========================================================================
         backButton = findViewById(R.id.btn_back)
         inputKeyword = findViewById(R.id.input_new_keyword)
         spinner = findViewById(R.id.spinner_threat_level)
@@ -55,14 +71,12 @@ class KeywordSettingsActivity : AppCompatActivity() {
         listLevel3 = findViewById(R.id.list_level3_keywords)
         listLevel4 = findViewById(R.id.list_level4_keywords)
 
+        /** Initialize SettingsManager */
         settingsManager = SettingsManager(applicationContext)
 
-        // Set up back button
-        backButton.setOnClickListener {
-            finish()
-        }
-
-        // Set up threat level spinner
+        // =========================================================================
+        // SETUP SPINNER
+        // =========================================================================
         val spinnerAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.threat_levels,
@@ -71,23 +85,34 @@ class KeywordSettingsActivity : AppCompatActivity() {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_keyword_settings_dropdown_menu)
         spinner.adapter = spinnerAdapter
 
-        // Handle Add button click
+        // =========================================================================
+        // EVENT HANDLERS
+        // =========================================================================
+
+        /** Back arrow closes this activity */
+        backButton.setOnClickListener {
+            finish()
+        }
+
+        /** Add button updates prefs */
         addButton.setOnClickListener {
             val word = inputKeyword.text.toString().trim()
-            val level = spinner.selectedItemPosition + 1 // Level indices start from 1
+            val level = spinner.selectedItemPosition + 1
 
+            /* Ensure non-empty input */
             if (word.isBlank()) {
                 Toast.makeText(this, "Please enter a keyword", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            /* Prevents duplicates */
             val existing = settingsManager.getKeywords(level)
-
             if (existing.any { it.equals(word, ignoreCase = true) }) {
                 Toast.makeText(this, "Keyword already exists", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            /* Save new keyword set */
             val updated = existing.toMutableSet()
             updated.add(word)
             settingsManager.saveKeywordList(level, updated)
@@ -98,24 +123,21 @@ class KeywordSettingsActivity : AppCompatActivity() {
             refreshKeywordLists()
         }
 
-        // Launch Edit screen for each level
-        findViewById<TextView>(R.id.link_edit_level1).setOnClickListener {
-            launchEditScreen(1)
-        }
-        findViewById<TextView>(R.id.link_edit_level2).setOnClickListener {
-            launchEditScreen(2)
-        }
-        findViewById<TextView>(R.id.link_edit_level3).setOnClickListener {
-            launchEditScreen(3)
-        }
-        findViewById<TextView>(R.id.link_edit_level4).setOnClickListener {
-            launchEditScreen(4)
-        }
+        /** Launch the edit screen for each level when its “Edit” link is tapped */
+        linkEditLevel1.setOnClickListener { launchEditScreen(1) }
+        linkEditLevel2.setOnClickListener { launchEditScreen(2) }
+        linkEditLevel3.setOnClickListener { launchEditScreen(3) }
+        linkEditLevel4.setOnClickListener { launchEditScreen(4) }
 
-        // Initial keyword display
+        /** Initial population of the keyword lists */
         refreshKeywordLists()
     }
 
+    // =========================================================================
+    // HELPER METHODS
+    // =========================================================================
+
+    /** Refreshes each level’s TextView with the latest keyword set */
     private fun refreshKeywordLists() {
         listLevel1.text = formatList(settingsManager.getKeywords(1))
         listLevel2.text = formatList(settingsManager.getKeywords(2))
@@ -123,16 +145,19 @@ class KeywordSettingsActivity : AppCompatActivity() {
         listLevel4.text = formatList(settingsManager.getKeywords(4))
     }
 
+    /** Formats a Set<String> into a multi-line string or shows a placeholder */
     private fun formatList(set: Set<String>): String {
         return if (set.isEmpty()) "No keywords added" else set.joinToString("\n")
     }
 
+    /** Starts EditKeywordsActivity for the given threat level */
     private fun launchEditScreen(level: Int) {
         val intent = Intent(this, EditKeywordsActivity::class.java)
         intent.putExtra("threat_level", level)
         startActivityForResult(intent, 1000)
     }
 
+    /** After returning from the edit screen, refresh lists if changed */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1000 && resultCode == RESULT_OK) {
@@ -140,7 +165,11 @@ class KeywordSettingsActivity : AppCompatActivity() {
         }
     }
 
-    // Hide Keyboard
+    // =========================================================================
+    // KEYBOARD HANDLING
+    // =========================================================================
+
+    /** Hides the soft keyboard when the user taps outside an input field. */
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         val view = currentFocus
         if (view != null && ev.action == MotionEvent.ACTION_DOWN) {
@@ -154,5 +183,4 @@ class KeywordSettingsActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
-
 }

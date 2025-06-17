@@ -1,16 +1,20 @@
+// Holds the pop-up messages for each threat level
+// Created By Kelley Rosa
 package com.silenthelp.core
 
-/** Text that appears in the post-call pop-up for each threat level.
- *  `##LOC##` will be replaced with latitude/longitude.
- *   `##NAME##`  → contact name(s)  */
 object ThreatPolicy {
 
+    // =========================================================================
+    // Map of threat level → template text
+    // =========================================================================
     val LEVEL_TEMPLATE = mapOf(
+        /* Level 1: low-urgency comfort request */
         1 to """ 
             |Contact ##NAME## received the message: 
             |“Hey, I feel a bit uncomfortable. Could you call me when you get a second?"
             |""".trimMargin(),
 
+        /* Level 2: moderate alert with 2-minute ambient recording */
         2 to """
             * Silent Help has saved your time and location * 
             * Ambient audio recording started (2 min) *
@@ -19,6 +23,7 @@ object ThreatPolicy {
             “I’m uneasy right now—can you call me in a couple of minutes and check on me?”
             """.trimIndent(),
 
+        /* Level 3: high alert with 5-minute recording + coordinates */
         3 to """
             * Silent Help has saved your time and location * 
             * Ambient audio recording started (5 min) *
@@ -29,6 +34,7 @@ object ThreatPolicy {
             
             """.trimIndent(),
 
+        /* Level 4: emergency – 10-minute recording, services notified, coordinates */
         4 to """
             * Silent Help has saved your time and location *
             * Ambient audio recording started (10 min)

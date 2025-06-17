@@ -1,3 +1,7 @@
+// Manages the live fake call screen
+// Requests permissions, starts the speech engine, detects keywords across all threat levels, and on hangup reports the highest level + contacts + location back
+// Created By Kelley Rosa
+
 package com.silenthelp.ui.fakecall
 
 import android.Manifest
@@ -22,28 +26,34 @@ import com.silenthelp.voice.MicWrapper
 
 
 class FakeCallActiveActivity : AppCompatActivity() {
-
-    private lateinit var tvTranscript: TextView
-
-    private lateinit var settings: SettingsManager
+    // =========================================================================
+    // VIEW REFERENCES
+    // =========================================================================
+    /** Wrapper around Android’s SpeechRecognizer */
     private var mic: MicWrapper? = null
-    private lateinit var detectors: Map<Int, KeywordDetector>
-
-
-    private val contactsAlerted = mutableSetOf<String>()
-    private var highestLevel = 0
+    /** Displays partial/final speech transcripts */
+    private lateinit var tvTranscript: TextView
+    /** Last known location snapshot */
     private var lastLocation: Location? = null
+    /** One detector per threat level (1–4), built from user-defined keywords */
+    private lateinit var detectors: Map<Int, KeywordDetector>
+    /** Highest threat level detected so far (0 = none) */
+    private var highestLevel = 0
+    /** Names of contacts alerted during this call */
+    private val contactsAlerted = mutableSetOf<String>()
+
+    /** Manager for storing and retrieving data */
+    private lateinit var settings: SettingsManager
 
     //==========================================================================
     // Permission Launcher
     //==========================================================================
+    /** Requests RECORD_AUDIO and COARSE/FINE_LOCATION */
     private val permLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { result ->
+        ActivityResultContracts.RequestMultiplePermissions() ) { result ->
         if (result[Manifest.permission.ACCESS_COARSE_LOCATION] == true ||
             result[Manifest.permission.ACCESS_FINE_LOCATION]   == true
-        ) getLastLocation()
-
+            ) getLastLocation()
         if (result[Manifest.permission.RECORD_AUDIO] == true) {
             initEngine()
         } else {
@@ -51,36 +61,45 @@ class FakeCallActiveActivity : AppCompatActivity() {
         }
     }
 
+    // =========================================================================
+    // ACTIVITY LIFECYCLE
+    // =========================================================================
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /** Set Layout for ACTIVE fake call */
         setContentView(R.layout.activity_fake_call_active)
+
+        /** Hides Global ActionBar */
         supportActionBar?.hide()
 
+        // =========================================================================
+        // BIND VIEWS AND HELPERS
+        // =========================================================================
         tvTranscript = findViewById(R.id.tvTranscript)
         settings = SettingsManager(this)
 
-
+        /** Build a KeywordDetector for each threat level */
         detectors = (1..4).associateWith { lvl ->
-            KeywordDetector(settings.getKeywords(lvl))   // ← nothing hard-coded
+            KeywordDetector(settings.getKeywords(lvl))
         }
 
+        /** Hang up button returns to HomeActivity */
         findViewById<Button>(R.id.btnHangUp).setOnClickListener { endCall() }
 
+        /** Kick off permission checks */
         requestPermissionsIfNeeded()
     }
 
-    override fun onDestroy() {
-        mic?.stop()
-        super.onDestroy()
-    }
-
+    // =========================================================================
+    // PERMISSION HANDLING
+    // =========================================================================
+    /** Checks for needed permissions and either requests or proceeds. */
     private fun requestPermissionsIfNeeded() {
         val permsNeeded = mutableListOf<String>()
 
         if (needsPerm(Manifest.permission.RECORD_AUDIO))
             permsNeeded += Manifest.permission.RECORD_AUDIO
-
-        // coarse is enough for lat/lon snapshot
         if (needsPerm(Manifest.permission.ACCESS_COARSE_LOCATION))
             permsNeeded += Manifest.permission.ACCESS_COARSE_LOCATION
 
@@ -92,10 +111,14 @@ class FakeCallActiveActivity : AppCompatActivity() {
         }
     }
 
+    /** Returns true if the given permission isnt granted yet */
     private fun needsPerm(name: String) =
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                ContextCompat.checkSelfPermission(this, name) != PackageManager.PERMISSION_GRANTED
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this, name) != PackageManager.PERMISSION_GRANTED
 
+    // =========================================================================
+    // SPEECH ENGINE SETUP
+    // =========================================================================
+    /** Initializes the MicWrapper to start listening immediately. */
     private fun initEngine() {
         tvTranscript.text = "Ready…"
 
@@ -106,10 +129,22 @@ class FakeCallActiveActivity : AppCompatActivity() {
             onFinal   = { txt -> handleTranscript(txt, true) },
             onErr     = { code -> runOnUiThread {
                 tvTranscript.text = "Error $code – speak again"
-            } }
+            }
+                mic?.start()
+            }
         ).also { it.start() }
     }
 
+    /** When activity is destroyed, end speech engine */
+    override fun onDestroy() {
+        mic?.stop()
+        super.onDestroy()
+    }
+
+    // =========================================================================
+    // TRANSCRIPT HANDLING & KEYWORD DETECTION
+    // =========================================================================
+    /** Updates the UI with the transcript and checks each level’s detector on match */
     private fun handleTranscript(text: String, isFinal: Boolean) {
         runOnUiThread {
             tvTranscript.text = (if (isFinal) "Final:   " else "Partial: ") + text
@@ -123,6 +158,7 @@ class FakeCallActiveActivity : AppCompatActivity() {
         }
     }
 
+    /** Records a keyword hit: updates highestLevel, adds contact, and toasts */
     private fun handleHit(level: Int) {
         highestLevel = maxOf(highestLevel, level)
 
@@ -133,9 +169,14 @@ class FakeCallActiveActivity : AppCompatActivity() {
         val toast = if (level == 1)
             "Level-1 keyword detected"
         else "Level-$level keyword detected"
-        runOnUiThread { Toast.makeText(this, toast, Toast.LENGTH_LONG).show() }
+        runOnUiThread { Toast.makeText(this, toast, Toast.LENGTH_LONG).show()
+        }
     }
 
+    // =========================================================================
+    // FINISHING THE CALL
+    // =========================================================================
+    /** Stops the mic, packages threat_level, contacts, and coords into an Intent and returns to HomeActivity */
     private fun endCall() {
         mic?.stop()
 
@@ -147,7 +188,6 @@ class FakeCallActiveActivity : AppCompatActivity() {
                 putExtra("lat", it.latitude)
                 putExtra("lon", it.longitude)
             }
-
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
                     Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
@@ -155,6 +195,10 @@ class FakeCallActiveActivity : AppCompatActivity() {
         finish()
     }
 
+    // =========================================================================
+    // LOCATION SNAPSHOT
+    // =========================================================================
+    /**  Grabs the last known location from NETWORK or GPS provider, if coarse or fine location permission is granted. */
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         val coarseGranted =
@@ -174,5 +218,4 @@ class FakeCallActiveActivity : AppCompatActivity() {
         lastLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             ?: lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
     }
-
 }

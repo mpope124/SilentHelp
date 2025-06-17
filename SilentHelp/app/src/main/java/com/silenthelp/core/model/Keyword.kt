@@ -1,4 +1,4 @@
-// Created by Kelley Rosa 06-05-25
+// Created by Kelley Rosa
 package com.silenthelp.core.model
 
 // Initialize Keyword Class

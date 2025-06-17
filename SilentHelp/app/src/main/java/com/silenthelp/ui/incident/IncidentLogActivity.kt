@@ -1,3 +1,5 @@
+// Displays the log of past keyword detections
+// Created By Michael Pope
 package com.silenthelp.ui.incident
 
 import android.os.Bundle
@@ -5,9 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R
 
 class IncidentLogActivity : AppCompatActivity() {
+    // =========================================================================
+    // ACTIVITY LIFECYCLE
+    // =========================================================================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.incident_log)
+        /** Set Layout for Incident Log */
+        setContentView(R.layout.activity_incident_log)
 
 //        findViewById<Button>(R.id.button_back_to_home).setOnClickListener {
 //            val intent = Intent(this, MainActivity::class.java)

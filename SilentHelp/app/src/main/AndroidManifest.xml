@@ -59,7 +59,7 @@
 
         <!-- User settings & incident log -->
         <activity
-            android:name=".ui.settings.SettingsActivity" android:exported="false" />
+            android:name=".ui.settings.UserSettingsActivity" android:exported="false" />
         <activity android:name=".ui.contact.ContactSettingsActivity"/>      <!-- Colin 06-05-25 -->
         <activity android:name=".ui.incident.IncidentLogActivity"/>         <!-- Michael 06-05-25 -->
     </application>

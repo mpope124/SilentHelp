@@ -1,4 +1,4 @@
-// Created by Kelley Rosa 06-10-25
+// Created by Kelley Rosa
 package com.silenthelp.core.model
 
 // Initialize Contact Class

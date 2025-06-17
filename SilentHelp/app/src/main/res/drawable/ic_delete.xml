@@ -1,14 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Created by Kelley Rosa 06-07-25 -->
-
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="@android:color/white">
-
-    <path
-        android:fillColor="@android:color/white"
-        android:pathData="M3,6h18v2H3V6zm2,3h14l-1.5,14h-11L5,9zm5,2v10h2V11h-2zm4,0v10h2V11h-2zM9,4V3h6v1h5v2H4V4h5z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="true" android:height="24dp" android:tint="#FFFFFF" android:viewportHeight="960" android:viewportWidth="960" android:width="24dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M280,840Q247,840 223.5,816.5Q200,793 200,760L200,240L160,240L160,160L360,160L360,120L600,120L600,160L800,160L800,240L760,240L760,760Q760,793 736.5,816.5Q713,840 680,840L280,840ZM680,240L280,240L280,760Q280,760 280,760Q280,760 280,760L680,760Q680,760 680,760Q680,760 680,760L680,240ZM360,680L440,680L440,320L360,320L360,680ZM520,680L600,680L600,320L520,320L520,680ZM280,240L280,240L280,760Q280,760 280,760Q280,760 280,760L280,760Q280,760 280,760Q280,760 280,760L280,240Z"/>
+    
 </vector>
