@@ -38,5 +38,12 @@
     <string name="accessibility_service_description">
   SilentHelp volume-button trigger
 </string>
+    <string name="united_states">United States</string>
+    <string name="text_phonenumber">Text PhoneNumber</string>
+    <string name="incident_log_home_page">Incident Log Home Page</string>
+    <string name="recent_incidents">Recent Incidents</string>
+    <string name="back_to_home_page">Back to Home Page</string>
+    <string name="manage_keywords">Manage Keywords</string>
+    <string name="manage_trusted_contacts">Manage Trusted Contacts</string>
 
 </resources>
