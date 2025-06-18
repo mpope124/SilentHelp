@@ -23,9 +23,29 @@ import com.silenthelp.R
 import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.voice.KeywordDetector
 import com.silenthelp.voice.MicWrapper
+import android.os.Handler
+import android.os.Looper
 
 
 class FakeCallActiveActivity : AppCompatActivity() {
+
+    // ─── TIMER STATE ───────────────────────────────────────────────
+    private lateinit var durationText: TextView      // NEW
+    private val handler = Handler(Looper.getMainLooper()) // NEW
+    private var seconds = 0                          // NEW
+    private val tick: Runnable = object : Runnable { // NEW
+        override fun run() {
+            seconds++
+            val m = seconds / 60
+            val s = seconds % 60
+            durationText.text = String.format("%02d:%02d", m, s)
+            handler.postDelayed(this, 1_000)
+        }
+    }
+    // ───────────────────────────────────────────────────────────────
+
+
+
     // =========================================================================
     // VIEW REFERENCES
     // =========================================================================
@@ -77,6 +97,7 @@ class FakeCallActiveActivity : AppCompatActivity() {
         // BIND VIEWS AND HELPERS
         // =========================================================================
         tvTranscript = findViewById(R.id.tvTranscript)
+        durationText  = findViewById(R.id.textCallDuration)
         settings = SettingsManager(this)
 
         /** Build a KeywordDetector for each threat level */
@@ -86,6 +107,9 @@ class FakeCallActiveActivity : AppCompatActivity() {
 
         /** Hang up button returns to HomeActivity */
         findViewById<Button>(R.id.btnHangUp).setOnClickListener { endCall() }
+
+        /** start the call-duration timer */
+        handler.post(tick)
 
         /** Kick off permission checks */
         requestPermissionsIfNeeded()
@@ -137,6 +161,7 @@ class FakeCallActiveActivity : AppCompatActivity() {
 
     /** When activity is destroyed, end speech engine */
     override fun onDestroy() {
+        handler.removeCallbacks(tick)
         mic?.stop()
         super.onDestroy()
     }
@@ -176,9 +201,10 @@ class FakeCallActiveActivity : AppCompatActivity() {
     // =========================================================================
     // FINISHING THE CALL
     // =========================================================================
-    /** Stops the mic, packages threat_level, contacts, and coords into an Intent and returns to HomeActivity */
+    /** Stops the mic and timer, packages threat_level, contacts, and coords into an Intent and returns to HomeActivity */
     private fun endCall() {
         mic?.stop()
+        handler.removeCallbacks(tick)
 
         val intent = Intent(this, com.silenthelp.ui.home.HomeActivity::class.java).apply {
             putExtra("threat_level", highestLevel)
