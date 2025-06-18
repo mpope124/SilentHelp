@@ -5,8 +5,9 @@
     android:id="@+id/contactPhone"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_drk_blue"
-    android:padding="0dp">
+    android:backgroundTintMode="add"
+    android:padding="0dp"
+    android:background="@drawable/gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/bg_blue"
+            android:background="@color/bg_level_2"
             android:paddingStart="12dp"
             android:paddingEnd="12dp">
 
@@ -27,11 +28,11 @@
                 android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_back_white"
                 android:contentDescription="@string/back"
+                android:src="@drawable/ic_arrow_back_white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Keyword Settings Header -->
             <TextView
@@ -42,17 +43,17 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="16dp"
-            app:cardBackgroundColor="@color/bg_blue"
+            app:cardBackgroundColor="@color/bg_level_2"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp">
 
@@ -91,20 +92,20 @@
                     android:id="@+id/spinner_threat_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:background="@drawable/bg_spinner_rounded"
-                    android:popupBackground="@drawable/bg_spinner_rounded"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp" />
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_spinner_rounded"
+                    android:minHeight="48dp"
+                    android:popupBackground="@drawable/bg_spinner_rounded" />
 
                 <!-- Add Button -->
                 <Button
                     android:id="@+id/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/accent_teal"
                     android:text="@string/add_contact"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/accent_teal" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

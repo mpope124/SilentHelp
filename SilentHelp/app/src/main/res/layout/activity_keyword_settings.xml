@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_drk_blue">
+    android:background="@drawable/gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/bg_blue"
+            android:background="@color/bg_level_2"
             android:paddingStart="12dp"
             android:paddingEnd="12dp">
 
@@ -26,11 +26,11 @@
                 android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_back_white"
                 android:contentDescription="@string/back"
+                android:src="@drawable/ic_arrow_back_white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Keyword Settings Header -->
             <TextView
@@ -41,10 +41,10 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Add New Keyword Card -->
@@ -54,7 +54,7 @@
             android:layout_margin="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/bg_blue">
+            app:cardBackgroundColor="@color/bg_level_2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,7 +163,7 @@
             android:layout_margin="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/bg_level_2">
+            app:cardBackgroundColor="#bf8c00">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -210,7 +210,7 @@
             android:layout_margin="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/bg_level_3">
+            app:cardBackgroundColor="#bf5c00">
 
             <LinearLayout
                 android:layout_width="match_parent"

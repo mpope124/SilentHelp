@@ -2,23 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:fontFamily="sans-serif-black"
-        android:text="Incident Log Home Page"
+        android:text="@string/incident_log_home_page"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="34sp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Below are the most recent incidents. Click on one to expand information"
+        android:text="@string/recent_incidents"
         android:textAlignment="center" />
 
     <ScrollView
@@ -43,6 +44,6 @@
         android:id="@+id/button_back_to_home"
         android:layout_width="match_parent"
         android:layout_height="77dp"
-        android:text="Back To Home Page"
-        android:textColor="#020202" />
+        android:text="@string/back_to_home_page"
+        android:textColor="@color/white" />
 </LinearLayout>

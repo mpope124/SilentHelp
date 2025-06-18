@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_drk_blue">
+    android:background="@drawable/gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/bg_blue"
+            android:background="@color/bg_level_2"
             android:paddingStart="12dp"
             android:paddingEnd="12dp">
 
@@ -57,7 +57,7 @@
             android:id="@+id/btnManageKeywords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Manage Keywords" />
+            android:text="@string/manage_keywords" />
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp"/>
@@ -65,6 +65,6 @@
             android:id="@+id/btnManageContacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Manage Trusted Contacts" />
+            android:text="@string/manage_trusted_contacts" />
     </LinearLayout>
 </ScrollView>

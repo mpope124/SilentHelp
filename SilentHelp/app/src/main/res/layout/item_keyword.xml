@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Created by Kelley Rosa 06-05-25 -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_lt_blue"
+    android:background="@color/bg_level_2"
     android:padding="12dp"
     android:layout_marginBottom="8dp"
     android:clipToPadding="false">
@@ -68,3 +71,4 @@
             android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>
+</ScrollView>

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/root"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/gradient">
 
     <TextView
         android:id="@+id/textTitle"
@@ -15,7 +16,8 @@
         android:text="@string/discreet_safety_tools_at_your_fingertips"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:textColor="#dbdbdb"/>
 
     <Button
         android:id="@+id/btnFakeCall"
