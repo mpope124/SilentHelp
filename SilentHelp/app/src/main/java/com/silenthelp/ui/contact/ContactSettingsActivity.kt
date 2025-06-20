@@ -68,7 +68,7 @@ class ContactSettingsActivity : AppCompatActivity() {
         addButton.setOnClickListener {
             val name = nameInput.text.toString().trim()
             val phone = phoneInput.text.toString().trim()
-            val level = threatLevelSpinner.selectedItemPosition
+            val level = threatLevelSpinner.selectedItemPosition + 1
 
             /* Validates Inputs */
             if (name.isEmpty() || phone.isEmpty()) {

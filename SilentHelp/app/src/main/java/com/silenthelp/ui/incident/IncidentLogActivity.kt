@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R
 import android.util.Log
+import android.widget.ImageView
 import com.silenthelp.models.Incident
 import com.silenthelp.repository.IncidentRepository
 import com.silenthelp.ui.adapter.IncidentAdapter
@@ -26,6 +27,14 @@ class IncidentLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         /** Set Layout for Incident Log */
         setContentView(R.layout.activity_incident_log)
+
+        /** Hides Global ActionBar */
+        supportActionBar?.hide()
+        val backButton: ImageView = findViewById(R.id.btn_back)
+        /** Closes activity when back arrow is tapped */
+        backButton.setOnClickListener {
+            finish()
+        }
 
         adapter = IncidentAdapter(emptyList())
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)

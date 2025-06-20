@@ -9,7 +9,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationManager
+import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
@@ -18,18 +18,30 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import com.silenthelp.R
 import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.voice.KeywordDetector
 import com.silenthelp.voice.MicWrapper
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.silenthelp.core.ThreatPolicy
+import com.silenthelp.models.Incident
+import com.silenthelp.ui.home.HomeActivity
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class FakeCallActiveActivity : AppCompatActivity() {
 
-    // ─── TIMER STATE ───────────────────────────────────────────────
+    // =========================================================================
+    // TIMER STATE
+    // =========================================================================
     private lateinit var durationText: TextView      // NEW
     private val handler = Handler(Looper.getMainLooper()) // NEW
     private var seconds = 0                          // NEW
@@ -42,9 +54,6 @@ class FakeCallActiveActivity : AppCompatActivity() {
             handler.postDelayed(this, 1_000)
         }
     }
-    // ───────────────────────────────────────────────────────────────
-
-
 
     // =========================================================================
     // VIEW REFERENCES
@@ -61,6 +70,15 @@ class FakeCallActiveActivity : AppCompatActivity() {
     private var highestLevel = 0
     /** Names of contacts alerted during this call */
     private val contactsAlerted = mutableSetOf<String>()
+    /** Detect all keywords on call */
+    private var detectedKeywords = mutableListOf<String>()
+
+    private lateinit var fusedClient: FusedLocationProviderClient
+
+    /** Media for ambient recording */
+    private var recorder: MediaRecorder? = null
+    private var recordFile: File? = null
+
 
     /** Manager for storing and retrieving data */
     private lateinit var settings: SettingsManager
@@ -92,6 +110,8 @@ class FakeCallActiveActivity : AppCompatActivity() {
 
         /** Hides Global ActionBar */
         supportActionBar?.hide()
+
+        fusedClient = LocationServices.getFusedLocationProviderClient(this)
 
         // =========================================================================
         // BIND VIEWS AND HELPERS
@@ -126,12 +146,18 @@ class FakeCallActiveActivity : AppCompatActivity() {
             permsNeeded += Manifest.permission.RECORD_AUDIO
         if (needsPerm(Manifest.permission.ACCESS_COARSE_LOCATION))
             permsNeeded += Manifest.permission.ACCESS_COARSE_LOCATION
+        if (needsPerm(Manifest.permission.ACCESS_FINE_LOCATION))
+            permsNeeded += Manifest.permission.ACCESS_FINE_LOCATION
 
         if (permsNeeded.isEmpty()) {
             getLastLocation()
             initEngine()
         } else {
-            permLauncher.launch(permsNeeded.toTypedArray())
+            permLauncher.launch(arrayOf(
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ))
         }
     }
 
@@ -176,10 +202,14 @@ class FakeCallActiveActivity : AppCompatActivity() {
         }
 
         for (level in 4 downTo 1) {
-            if (detectors[level]?.detect(text)?.isNotEmpty() == true) {
-                handleHit(level)
-                break
-            }
+            detectors[level]?.detect(text)
+                ?.takeIf { it.isNotEmpty() }
+                ?.let { newHits ->
+                    /* record any newly detected keywords */
+                    detectedKeywords.addAll(newHits)
+                    handleHit(level)
+                    return
+                }
         }
     }
 
@@ -196,6 +226,17 @@ class FakeCallActiveActivity : AppCompatActivity() {
         else "Level-$level keyword detected"
         runOnUiThread { Toast.makeText(this, toast, Toast.LENGTH_LONG).show()
         }
+
+        if (level >= 2 && recorder == null) {
+            // choose duration by level
+            val durationMs = when(level) {
+                2 -> 60_000L  // 1 min
+                3 -> 90_000L  // 1.5 min
+                4 -> 120_000L // 2 min
+                else -> 0L
+            }
+            startAmbientRecording(durationMs, level)
+        }
     }
 
     // =========================================================================
@@ -206,17 +247,53 @@ class FakeCallActiveActivity : AppCompatActivity() {
         mic?.stop()
         handler.removeCallbacks(tick)
 
-        val intent = Intent(this, com.silenthelp.ui.home.HomeActivity::class.java).apply {
+        /** Build the Incident object */
+        val now = Date()
+        val ts  = SimpleDateFormat("MM/dd/yy HH:mm:ss", Locale.US).format(now)
+        val datePart = SimpleDateFormat("MM/dd", Locale.US).format(now)
+        val title = "$datePart – Level $highestLevel"
+        var desc = ThreatPolicy.LEVEL_TEMPLATE[highestLevel] ?: ""
+        desc = desc
+            .replace("##LOC##", "${lastLocation?.latitude}, ${lastLocation?.longitude}")
+            .replace("##NAME##", contactsAlerted.joinToString())
+
+        val incident = Incident(
+            _id              = null,
+            title            = title,
+            keywordsDetected = detectedKeywords.toList(),
+            timestamp        = ts,
+            severity         = "Level $highestLevel",
+            contact          = contactsAlerted.toList(),
+            location         = "${lastLocation?.latitude}, ${lastLocation?.longitude}",
+            audioPath        = recordFile?.absolutePath
+        )
+
+
+        /** Append data to incidents.json */
+        val file = File(filesDir, "incidents.json")
+        val gson = Gson()
+        val type = object: TypeToken<MutableList<Incident>>(){}.type
+        val list: MutableList<Incident> = if (file.exists()) {
+            gson.fromJson(file.readText(), type)
+        } else {
+            mutableListOf()
+        }
+        list.add(incident)
+        file.writeText(gson.toJson(list))
+
+        /** Fire the Intent back to HomeActivity for Popup */
+        val intent = Intent(this, HomeActivity::class.java).apply {
             putExtra("threat_level", highestLevel)
             putExtra("alerted_contacts", contactsAlerted.toTypedArray())
-
             lastLocation?.let {
                 putExtra("lat", it.latitude)
                 putExtra("lon", it.longitude)
             }
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
+        file.writeText(gson.toJson(list))
+        Log.d("FakeCall", "Wrote incidents.json: ${file.readText()}")
+
         startActivity(intent)
         finish()
     }
@@ -227,21 +304,59 @@ class FakeCallActiveActivity : AppCompatActivity() {
     /**  Grabs the last known location from NETWORK or GPS provider, if coarse or fine location permission is granted. */
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        val coarseGranted =
-            ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-
-        val fineGranted =
-            ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-
-        if (!coarseGranted && !fineGranted) return
-
-        val lm: LocationManager = getSystemService() ?: return
-
-        lastLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            ?: lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        fusedClient.lastLocation
+            .addOnSuccessListener { loc ->
+                if (loc != null) {
+                    lastLocation = loc
+                    Log.d("LocationDebug", "fused loc=$loc")
+                } else {
+                    Log.d("LocationDebug", "fused lastLocation was null")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("LocationDebug", "fused error", e)
+            }
     }
+
+    // =========================================================================
+    // AMBIENT RECORDING
+    // =========================================================================
+    private fun startAmbientRecording(durationMs: Long, level: Int) {
+        // 1) create a human-readable timestamp
+        val now = Date()
+        val ts  = SimpleDateFormat("MMddyyyy_HHmmss", Locale.US).format(now)
+
+        // 2) build filename with timestamp and level
+        val filename = "ambient_${ts}_L$level.mp4"
+        recordFile = File(filesDir, filename)
+
+        recorder = MediaRecorder().apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            setOutputFile(recordFile!!.absolutePath)
+            prepare()
+            start()
+        }
+
+        // schedule stop after the given duration
+        Handler(Looper.getMainLooper()).postDelayed({
+            stopAmbientRecording()
+        }, durationMs)
+    }
+
+    private fun stopAmbientRecording() {
+        recorder?.apply {
+            try {
+                stop()
+            } catch (_: IllegalStateException) {
+                // no‐op
+            } finally {
+                release()
+            }
+        }
+        recorder = null
+    }
+
+
 }
