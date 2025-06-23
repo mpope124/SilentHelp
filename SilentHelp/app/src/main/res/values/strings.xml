@@ -40,4 +40,7 @@
     <string name="delete">Delete</string>
     <string name="play_audio">Play Audio</string>
     <string name="app_name">SilentHelp</string>
+    <string name="cancel">Cancel</string>
+    <string name="accessibility_service_description">Accessibility Service Description</string>
+    <string name="save">Save</string>
 </resources>
