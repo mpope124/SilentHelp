@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R
-import com.silenthelp.ui.keyword.KeywordSettingsActivity
 import com.silenthelp.ui.contact.ContactSettingsActivity
+import com.silenthelp.ui.keyword.KeywordSettingsActivity
 
 class UserSettingsActivity : AppCompatActivity() {
 

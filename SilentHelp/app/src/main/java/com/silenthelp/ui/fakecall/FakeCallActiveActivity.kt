@@ -12,29 +12,30 @@ import android.location.Location
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.silenthelp.R
-import com.silenthelp.core.manager.SettingsManager
-import com.silenthelp.voice.KeywordDetector
-import com.silenthelp.voice.MicWrapper
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.silenthelp.R
 import com.silenthelp.core.ThreatPolicy
+import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.models.Incident
 import com.silenthelp.ui.home.HomeActivity
+import com.silenthelp.voice.KeywordDetector
+import com.silenthelp.voice.MicWrapper
 import java.io.File
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 
 class FakeCallActiveActivity : AppCompatActivity() {

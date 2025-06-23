@@ -5,9 +5,9 @@ package com.silenthelp.ui.fakecall
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
 import com.silenthelp.R
 
 class FakeCallActivity : AppCompatActivity() {

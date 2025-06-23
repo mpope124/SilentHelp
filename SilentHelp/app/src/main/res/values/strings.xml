@@ -39,4 +39,5 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="play_audio">Play Audio</string>
+    <string name="app_name">SilentHelp</string>
 </resources>

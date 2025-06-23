@@ -3,15 +3,15 @@
 package com.silenthelp.ui.incident
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.silenthelp.R
 import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.silenthelp.R
 import com.silenthelp.models.Incident
 import com.silenthelp.repository.IncidentRepository
 import com.silenthelp.ui.adapter.IncidentAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

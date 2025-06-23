@@ -1,9 +1,9 @@
 package com.silenthelp.repository
 //Added by Michael
 
+import com.silenthelp.api.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.silenthelp.api.ApiService
 
 object IncidentRepository {
     private const val BASE_URL = "http://10.0.2.2:5000/api/" // for Android emulator
