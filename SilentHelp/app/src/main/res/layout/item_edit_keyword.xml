@@ -1,38 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Created by Kelley Rosa 06-07-25 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Editable keyword row with view/edit mode toggle -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        >
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/bg_level_2"
+        android:elevation="4dp"
+        app:cardCornerRadius="16dp">
 
-        <EditText
-            android:id="@+id/edit_keyword"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textCursorDrawable="@drawable/cursor_white"
-            android:layout_weight="1"
-            android:hint="@string/enter_keyword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:background="@drawable/bg_keyword_settings_input_textbox"
-            android:padding="10dp"
-            android:inputType="text" />
+            android:orientation="vertical"
+            android:padding="12dp">
 
-        <ImageView
-            android:id="@+id/btn_delete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_delete"
-            android:contentDescription="@string/delete"
-            android:layout_marginStart="8dp"
-            app:tint="@color/white" />
-    </LinearLayout>
-</ScrollView>
+            <!-- ==================== VIEW MODE ==================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/keyword_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Keyword"
+                    android:textSize="16sp"
+                    android:textColor="@color/white" />
+
+                <!-- Edit Icon -->
+                <ImageView
+                    android:id="@+id/edit_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="12dp"
+                    android:contentDescription="@string/edit"
+                    android:src="@drawable/ic_edit"
+                    app:tint="@color/white" />
+
+                <!-- Delete Icon -->
+                <ImageView
+                    android:id="@+id/delete_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/delete"
+                    android:src="@drawable/ic_delete"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+            <!-- ==================== VIEW MODE ==================== -->
+            <EditText
+                android:id="@+id/keyword_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_keywords"
+                android:visibility="gone"
+                android:background="@drawable/bg_input_textbox_active"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:padding="10dp"
+                android:textCursorDrawable="@drawable/cursor_white" />
+
+            <!-- Save/Cancel Buttons -->
+            <LinearLayout
+                android:id="@+id/edit_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginTop="12dp"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/accent_teal"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/accent_teal" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

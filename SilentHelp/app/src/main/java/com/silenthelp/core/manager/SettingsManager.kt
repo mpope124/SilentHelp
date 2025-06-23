@@ -9,7 +9,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.silenthelp.core.model.Contact
 
-class SettingsManager(context: Context) {
+class SettingsManager(private val context: Context) {
 
     // =========================================================================
     // SETUP & RATIONALE FLAG
@@ -39,44 +39,48 @@ class SettingsManager(context: Context) {
     /** JSON key under which the Contact list is stored */
     private val CONTACTS_KEY = "contacts_json"
 
-    /** Return All Saved Contacts */
+    /** Return all saved contacts */
     fun getContacts(): List<Contact> {
         val json = prefs.getString(CONTACTS_KEY, "[]")
         val type = object : TypeToken<List<Contact>>() {}.type
         return gson.fromJson(json, type)
     }
 
-    /** Overwrites the entire contact list in preferences */
-    fun saveContacts(contacts: List<Contact>) {
+    /** Overwrite the entire contact list in preferences */
+    fun saveContactList(contacts: List<Contact>) {
         prefs.edit { putString(CONTACTS_KEY, gson.toJson(contacts)) }
     }
 
-    /** Find the First Contact Matching a Threat Level */
+    /** Return the first contact that matches a given threat level (if any) */
     fun getContactForLevel(level: Int): Contact? =
         getContacts().firstOrNull { it.level == level }
 
     //==========================================================================
     // KEYWORD LISTS PER THREAT LEVEL
     //==========================================================================
-    /** Build Preference Key for a given levels keyword set */
+    /** Build the preference key for a keyword set at a given threat level */
     private fun keyFor(level: Int) = "level_${level}_keywords"
 
-    /** Get the set of keywords for the specified threat level */
+    /** Return the set of keywords for a specific threat level */
     fun getKeywords(level: Int): Set<String> =
         prefs.getStringSet(keyFor(level), emptySet()) ?: emptySet()
 
-    /** Replaces the entire keyword set for a level */
+    /** Replace the entire keyword set for a threat level */
     fun saveKeywordList(level: Int, keywords: Set<String>) {
         prefs.edit {
             putStringSet(keyFor(level), keywords.map { it.lowercase() }.toSet())
         }
     }
-    /** Add a keyword to a threat level */
-    fun addKeyword(word: String, level: Int) {
-        val updated = getKeywords(level).toMutableSet().apply {
-            add(word.lowercase())
+
+    // =========================================================================
+    // SINGLETON ACCESS
+    // =========================================================================
+    /** Use this method to access a shared instance of SettingsManager */
+    companion object {
+        fun getInstance(context: Context): SettingsManager {
+            return SettingsManager(context.applicationContext)
         }
-        saveKeywordList(level, updated)
     }
+
 }
 

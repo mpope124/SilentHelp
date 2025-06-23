@@ -36,7 +36,7 @@
                 android:id="@+id/incident_log_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/incident_log_home_page"
+                android:text="@string/incident_log"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"

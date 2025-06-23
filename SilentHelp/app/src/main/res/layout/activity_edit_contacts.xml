@@ -1,9 +1,9 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Edit Keywords screen layout -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@drawable/gradient">
 
     <LinearLayout
@@ -31,12 +31,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <!-- User Settings Header -->
+            <!-- Edit Contacts Header -->
             <TextView
-                android:id="@+id/edit_keywords_title"
+                android:id="@+id/edit_contacts_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_settings"
+                android:text="@string/edit_contacts"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -46,29 +46,20 @@
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <!-- Contacts Card -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:padding="16dp">
 
-            <!-- Manage Keywords -->
-            <Button
-                android:id="@+id/btnManageKeywords"
+            <LinearLayout
+                android:id="@+id/container_contacts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/manage_keywords" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
-
-            <!-- Manage Contacts -->
-            <Button
-                android:id="@+id/btnManageContacts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/manage_contacts" />
-        </LinearLayout>
+                android:orientation="vertical">
+                <!-- Contacts EditText fields will be dynamically added here -->
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </ScrollView>

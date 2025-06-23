@@ -1,12 +1,5 @@
 <!-- Modified by Kelley Rosa 05-25-25 -->
 <resources>
-    <string name="app_name">SilentHelp</string>
-    <string name="keyword_settings">Keyword Settings</string>
-    <string name="enter_keyword">Enter keyword</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="edit_keywords_underline"><u>Edit Keywords</u></string>
     <!--  Threat Level Array  -->
     <string-array name="threat_levels">
         <item>Level 1: Social Exit</item>
@@ -15,36 +8,35 @@
         <item>Level 4: High Threat</item>
     </string-array>
 
-    <string name="saved_keywords">Saved Keywords</string>
-    <string name="trigger_fake_call">Trigger Fake Call</string>
-    <string name="view_incident_log">View Incident Log</string>
-    <string name="user_settings">User Settings</string>
-    <string name="discreet_safety_tools_at_your_fingertips">Discreet safety tools at your fingertips.</string>
-    <string name="back">back</string>
-    <string name="add_new_keyword">Add New Keyword</string>
-    <string name="incoming_call">Incoming Call</string>
+    <string name="back">Back</string>
+    <string name="contact_settings">Contact Settings</string>
+    <string name="add_new_contact">+ Add New Contact</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_phone_number">Enter Phone #</string>
+    <string name="add">Add</string>
     <string name="level_1_social_exit">Level 1: Social Exit</string>
-    <string name="no_keywords_added">No keywords added</string>
-    <string name="edit_keywords">Edit Keywords</string>
+    <string name="no_contacts_added">No Contacts Added</string>
+    <string name="edit_contacts">Edit Contacts</string>
     <string name="level_2_low">Level 2: Low</string>
     <string name="level_3_medium">Level 3: Medium</string>
     <string name="level_4_high">Level 4: High</string>
-    <string name="save">Save</string>
-    <string name="string_user_settings">User Settings</string>
-    <string name="phone">Phone #</string>
-    <string name="name">Name</string>
-    <string name="new_contact">+ New Contact</string>
-    <string name="add_contact">Add Contact</string>
-    <string name="accessibility_service_description">
-  SilentHelp volume-button trigger
-</string>
+    <string name="edit_keywords">Edit Keywords</string>
+    <string name="incoming_call">Incoming Call</string>
+    <string name="text_phonenumber">+1 (425) 641-0080</string>
     <string name="united_states">United States</string>
-    <string name="text_phonenumber">Text PhoneNumber</string>
-    <string name="incident_log_home_page">Incident Log Home Page</string>
-    <string name="recent_incidents">Recent Incidents</string>
-    <string name="back_to_home_page">Back to Home Page</string>
+    <string name="discreet_safety_tools_at_your_fingertips">Discreet Safety Tools at Your Fingertips</string>
+    <string name="trigger_fake_call">Trigger Fake Call</string>
+    <string name="view_incident_log">View Incident Log</string>
+    <string name="user_settings">User Settings</string>
+    <string name="incident_log">Incident Log</string>
+    <string name="recent_incidents">Recent Incidents:</string>
+    <string name="keyword_settings">Keyword Settings</string>
+    <string name="add_new_keyword">+ Add New Keyword</string>
+    <string name="enter_keyword">Enter Keyword</string>
+    <string name="no_keywords_added">No Keywords Added</string>
     <string name="manage_keywords">Manage Keywords</string>
-    <string name="manage_trusted_contacts">Manage Trusted Contacts</string>
+    <string name="manage_contacts">Manage Contacts</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <string name="play_audio">Play Audio</string>
-
 </resources>
