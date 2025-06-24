@@ -26,6 +26,12 @@
         android:text="@string/trigger_fake_call" />
 
     <Button
+        android:id="@+id/btnScheduleCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/schedule_a_call" />
+
+    <Button
         android:id="@+id/btnIncidentLog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

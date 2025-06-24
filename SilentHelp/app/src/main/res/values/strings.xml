@@ -43,4 +43,10 @@
     <string name="cancel">Cancel</string>
     <string name="accessibility_service_description">Accessibility Service Description</string>
     <string name="save">Save</string>
+    <string name="schedule_a_call">Schedule A Call</string>
+    <string name="select_time">Select Time</string>
+    <string name="select_date">Select Date</string>
+    <string name="add_new_scheduled_call">+ Add New Scheduled Call</string>
+    <string name="time">Time:</string>
+    <string name="date">Date:</string>
 </resources>

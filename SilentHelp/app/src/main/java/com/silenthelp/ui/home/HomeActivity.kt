@@ -16,6 +16,7 @@ import com.silenthelp.core.ThreatPolicy
 import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.ui.fakecall.FakeCallActivity
 import com.silenthelp.ui.incident.IncidentLogActivity
+import com.silenthelp.ui.schedule.ScheduleCallActivity
 import com.silenthelp.ui.settings.UserSettingsActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -59,15 +60,18 @@ class HomeActivity : AppCompatActivity() {
         //==========================================================================
         // HOME SCREEN NAVIGATION BUTTONS
         //==========================================================================
-        findViewById<Button>(R.id.btnOpenUserSettings)
-            .setOnClickListener { startActivity(Intent(this, UserSettingsActivity::class.java)) }
 
         findViewById<Button>(R.id.btnFakeCall)
             .setOnClickListener { startActivity(Intent(this, FakeCallActivity::class.java)) }
 
+        findViewById<Button>(R.id.btnScheduleCall)
+            .setOnClickListener { startActivity(Intent(this, ScheduleCallActivity::class.java)) }
+
         findViewById<Button>(R.id.btnIncidentLog)
             .setOnClickListener { startActivity(Intent(this, IncidentLogActivity::class.java)) }
 
+        findViewById<Button>(R.id.btnOpenUserSettings)
+            .setOnClickListener { startActivity(Intent(this, UserSettingsActivity::class.java)) }
         /** Ensure any post-call dialog is shown after navigation buttons are read maybeShowAlertedDialog() */
         maybeShowAlertedDialog()
     }

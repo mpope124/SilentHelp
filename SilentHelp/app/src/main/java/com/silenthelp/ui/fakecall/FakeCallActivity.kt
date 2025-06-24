@@ -2,10 +2,14 @@
 // Created By Carmelo Vera
 package com.silenthelp.ui.fakecall
 
+import android.app.KeyguardManager
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.silenthelp.R
@@ -21,8 +25,19 @@ class FakeCallActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /** Set Layout for fake call */
+        /** Flags for Fake Call Receiver */
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+        )
+
+        /** Set Layout for ACTIVE fake call */
         setContentView(R.layout.activity_fake_call)
+
+        /** Logcat notification of launch */
+        Log.d("FakeCallActivity", "FakeCallActivity launched!")
 
         /** Initialize and start the ringtone in a loop */
         mediaPlayer = MediaPlayer.create(this, R.raw.ringtone)
