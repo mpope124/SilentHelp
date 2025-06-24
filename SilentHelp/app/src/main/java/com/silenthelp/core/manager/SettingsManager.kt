@@ -55,6 +55,10 @@ class SettingsManager(private val context: Context) {
     fun getContactForLevel(level: Int): Contact? =
         getContacts().firstOrNull { it.level == level }
 
+    /** Return all contacts matching a given threat level */
+    fun getContactsForLevel(level: Int): List<Contact> =
+        getContacts().filter { it.level == level }
+
     //==========================================================================
     // KEYWORD LISTS PER THREAT LEVEL
     //==========================================================================

@@ -4,6 +4,7 @@ package com.silenthelp.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -73,7 +74,6 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnOpenUserSettings)
             .setOnClickListener { startActivity(Intent(this, UserSettingsActivity::class.java)) }
         /** Ensure any post-call dialog is shown after navigation buttons are read maybeShowAlertedDialog() */
-        maybeShowAlertedDialog()
     }
 
     //==========================================================================
@@ -89,7 +89,6 @@ class HomeActivity : AppCompatActivity() {
     /** Re-run alert check */
     override fun onResume() {
         super.onResume()
-        maybeShowAlertedDialog()
     }
 
     //==========================================================================
@@ -105,7 +104,6 @@ class HomeActivity : AppCompatActivity() {
                         + "You'll be asked for these permissions the first time you start a fake call.")
             .setPositiveButton("Got it") { _, _ ->
                 settingsManager.markRationaleSeen()
-                maybeShowAlertedDialog()
             }
             .show()
     }
@@ -122,6 +120,7 @@ class HomeActivity : AppCompatActivity() {
         val names = intent.getStringArrayExtra("alerted_contacts") ?: arrayOf()
         val lat   = intent.getDoubleExtra("lat", 0.0)
         val lon   = intent.getDoubleExtra("lon", 0.0)
+        Log.d("AlertCheck", "Level=$lvl, Names=${names.joinToString()}, Lat=$lat, Lon=$lon")
 
         /** Format contact names or placeholder if empty */
         val nameText = if (names.isNotEmpty()) names.joinToString() else "—"

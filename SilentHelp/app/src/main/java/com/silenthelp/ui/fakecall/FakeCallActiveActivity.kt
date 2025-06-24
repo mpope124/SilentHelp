@@ -218,9 +218,10 @@ class FakeCallActiveActivity : AppCompatActivity() {
     private fun handleHit(level: Int) {
         highestLevel = maxOf(highestLevel, level)
 
-        settings.getContactForLevel(level)?.let { contact ->
-            contactsAlerted += contact.name
-        }
+        val contacts = settings.getContactsForLevel(level)
+        contactsAlerted += contacts.map { it.name }
+
+
 
         val toast = if (level == 1)
             "Level-1 keyword detected"
@@ -292,7 +293,6 @@ class FakeCallActiveActivity : AppCompatActivity() {
             }
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
-        file.writeText(gson.toJson(list))
         Log.d("FakeCall", "Wrote incidents.json: ${file.readText()}")
 
         startActivity(intent)

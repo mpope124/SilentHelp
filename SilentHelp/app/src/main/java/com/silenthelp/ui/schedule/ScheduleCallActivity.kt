@@ -282,7 +282,7 @@ class ScheduleCallActivity : AppCompatActivity() {
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
     }
     // =========================================================================
-    // DELETE/CANCLE AN EXISTING ALARM
+    // DELETE/CANCEL AN EXISTING ALARM
     // =========================================================================
     private fun cancelAlarm(call: ScheduledCall) {
         val intent = Intent(this, FakeCallReceiver::class.java)
