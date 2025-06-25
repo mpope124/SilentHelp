@@ -35,10 +35,10 @@ class IncidentAdapter(private var incidentList: List<Incident>) :
 
             holder.textTitle.text = incident.title
             holder.textDate.text = incident.timestamp
-            holder.textContacts.text = "Contacts: " + incident.contact.joinToString()
+            holder.textContacts.text = "Contacts: " + incident.contact?.joinToString(", ") ?: ""
             holder.textLocation.text = "Location: " + incident.location
             holder.textSeverity.text    = "Severity: ${incident.severity}"
-            holder.textKeywords.text    = "Keywords: ${incident.keywordsDetected.joinToString()}"
+            holder.textKeywords.text    = "Keywords: ${incident.keywordsDetected?.joinToString(", ") ?: ""}"
 
             // Show play button only if we have a non-null, existing audio file
             val path = incident.audioPath
