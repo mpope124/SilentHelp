@@ -49,4 +49,6 @@
     <string name="add_new_scheduled_call">+ Add New Scheduled Call</string>
     <string name="time">Time:</string>
     <string name="date">Date:</string>
+    <string name="Play">Play</string>
+    <string name="recent_incidents_log">Recent Incidents Log</string>
 </resources>
