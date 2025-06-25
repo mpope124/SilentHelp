@@ -29,6 +29,7 @@ import com.silenthelp.R
 import com.silenthelp.core.ThreatPolicy
 import com.silenthelp.core.manager.SettingsManager
 import com.silenthelp.models.Incident
+import com.silenthelp.repository.IncidentRepository
 import com.silenthelp.ui.home.HomeActivity
 import com.silenthelp.voice.KeywordDetector
 import com.silenthelp.voice.MicWrapper
@@ -36,6 +37,10 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 
 class FakeCallActiveActivity : AppCompatActivity() {
@@ -283,6 +288,22 @@ class FakeCallActiveActivity : AppCompatActivity() {
         list.add(incident)
         file.writeText(gson.toJson(list))
 
+        // Send incident to backend
+        IncidentRepository.api.uploadIncident(incident).enqueue(object : Callback<Incident> {
+            override fun onResponse(call: Call<Incident>, response: Response<Incident>) {
+                if (response.isSuccessful) {
+                    Log.d("API", "Incident uploaded successfully")
+                } else {
+                    Log.e("API", "Error uploading incident: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Incident>, t: Throwable) {
+                Log.e("API", "Upload failed: ${t.message}")
+            }
+        })
+
+
         /** Fire the Intent back to HomeActivity for Popup */
         val intent = Intent(this, HomeActivity::class.java).apply {
             putExtra("threat_level", highestLevel)
@@ -357,7 +378,11 @@ class FakeCallActiveActivity : AppCompatActivity() {
             }
         }
         recorder = null
+
+
     }
+
+
 
 
 }

@@ -9,7 +9,7 @@ interface ApiService {
     fun getIncidents(): Call<List<Incident>>
 
     @POST("incidents")
-    fun createIncident(@Body incident: Incident): Call<Incident>
+    fun uploadIncident(@Body incident: Incident): Call<Incident>
 
     @PUT("incidents/{id}")
     fun updateIncident(@Path("id") id: String, @Body incident: Incident): Call<Incident>
